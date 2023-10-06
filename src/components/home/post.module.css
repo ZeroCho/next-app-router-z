@@ -1,0 +1,37 @@
+.post {
+    display: flex;
+    padding: 12px 16px;
+    border-color: rgb(239, 243, 244);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.postUserSection {
+    margin-right: 12px;
+    width: 40px;
+}
+
+.postUserImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.postUserImage img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.postUserName {
+    font-weight: bold;
+}
+.postImageSection {
+
+}
+
+.postImageSection img {
+    margin-top: 12px;
+    width: 100%;
+    border-radius: 16px;
+}

@@ -1,0 +1,199 @@
+.container {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  background-color: #fff;
+}
+
+.leftSectionWrapper {
+  display: flex;
+  align-items: flex-end;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+.leftSection {
+  width: 275px;
+  padding: 0 8px;
+}
+
+.leftSectionFixed {
+  position: fixed;
+  width: inherit;
+  display: flex;
+  height: 100dvh;
+  flex-direction: column;
+}
+
+.leftSection nav {
+  flex: 1;
+}
+
+.leftSection nav ul {
+  list-style-type: none;
+}
+
+
+.leftSection nav li {
+  display: inline-block;
+  height: 58px;
+  width: 100%;
+}
+
+.leftSection nav li a {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navPill {
+  display: inline-flex;
+  height: 50px;
+  padding: 12px;
+  align-items: center;
+}
+.navPill:hover {
+  background-color: rgba(15,20,25, 0.1);
+  border-radius: 29px;
+}
+
+.navPill > div {
+  margin-left: 20px;
+  margin-right: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logOutButton {
+  width: inherit;
+  height: 66px;
+  padding: 12px;
+  display: flex;
+  margin: 12px 0;
+  cursor: pointer;
+}
+.logOutButton:hover {
+  background-color: rgba(15,20,25, 0.1);
+  border-radius: 33px;
+}
+.logOutUserImage img {
+  width: 40px;
+  border-radius: 50%;
+}
+.logOutUserName {
+  margin: 0 12px;
+}
+.logOutUserName > div:first-child {
+  font-weight: bold;
+}
+
+.rightSectionWrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.rightSectionInner {
+  width: 990px;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  justify-content: space-between;
+  position: relative;
+}
+
+.rightSection {
+  width: 350px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  right: 0;
+}
+
+.logo {
+  display: inline-block;
+  height: 56px;
+}
+
+.logoPill {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoPill:hover {
+  background-color: rgba(15,20,25, 0.1);
+}
+
+.postButton {
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 52px;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 28px;
+  background-color: rgb(29, 155, 240);
+  width: 234px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 26px;
+}
+
+.postButton:hover {
+  background-color: rgb(26, 140, 216);
+}
+
+.search {
+  height: 42px;
+  width: 350px;
+  border-radius: 21px;
+  background-color: rgb(239, 243, 244);
+  margin-top: 4px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+}
+
+.search svg {
+  margin-left: 20px;
+  color: rgb(83, 100, 113);
+}
+
+.search input {
+  outline: none;
+  background-color: inherit;
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+}
+
+.trend {
+  margin-top: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgb(247, 249, 249);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+}
+
+.followRecommend {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgb(247, 249, 249);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+}
