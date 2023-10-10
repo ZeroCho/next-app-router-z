@@ -59,6 +59,13 @@ compose/tweet도 이걸로 처리
 ### home/@modal/(..)compose/tweet은 안 되나요?
 - home 폴더 안에 @modal은 app/(afterLogin)/layout.tsx에서 인식되지 않아서 사용 불가
 
+# MSW
+```
+npm install msw --save-dev
+npx msw init public/ --save
+```
+[해당 이슈로 msw 그냥 사용 불가](https://github.com/mswjs/msw/issues/1644)
+
 # 페이지 접근 권한
 // TODO: 확인 필요
 - (afterLogin) 내부의 [username]/status/[id] 페이지는 모두 공개

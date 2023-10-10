@@ -1,6 +1,7 @@
 import './globals.css'
 import {Inter} from 'next/font/google'
 import {NextPage} from "next";
+import {MSWComponent} from "@/components/root/MSWComponent";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -14,6 +15,7 @@ const RootLayout: NextPage<Props> = ({
   return (
     <html lang="en">
     <body className={inter.className}>
+    <MSWComponent />
     {children}
     </body>
     </html>
