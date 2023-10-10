@@ -1,4 +1,4 @@
-import Home from "@/app/home/page";
+import Home from "@/app/(afterLogin)/home/page";
 
 export default function TweetModal() {
   return (

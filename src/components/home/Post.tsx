@@ -14,7 +14,7 @@ const Post = () => {
           &nbsp;
           <span>@elonmusk</span>
         </div>
-        <div>I&apos;m happy</div>
+        <div>Z.com is so marvelous. I&apos;m gonna buy that.</div>
         <div className={style.postImageSection}>
           <img src="/-NEfK-ll.jpg" alt=""/>
         </div>

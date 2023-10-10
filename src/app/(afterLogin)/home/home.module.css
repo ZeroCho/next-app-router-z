@@ -84,8 +84,7 @@
   flex: 1;
 }
 .postButtonSection {
-  display: flex;
-  justify-content: flex-end;
+  width: 100%;
 }
 .postForm input {
   width: 100%;
@@ -95,11 +94,35 @@
   line-height: 24px;
   outline: none;
 }
-
-.postForm button:disabled {
+.footerButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.footerButtonLeft {
+  flex: 1;
+}
+.uploadButton {
+  width: 34px;
+  height: 34px;
+  border: none;
+  cursor: pointer;
+  border-radius: 17px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.uploadButton:hover {
+  background-color: rgb(29, 155, 240, 0.1);
+}
+.uploadButton svg {
+  fill: rgb(29, 155, 240);
+}
+.actionButton:disabled {
   opacity: 0.5;
 }
-.postForm button {
+.actionButton {
   width: 94px;
   height: 36px;
   border: none;
@@ -109,6 +132,6 @@
   border-radius: 18px;
   background-color: rgb(29, 155, 240);
 }
-.postForm button:hover {
+.actionButton:hover {
   background-color: rgb(26, 140, 216);
 }

@@ -18,28 +18,25 @@ npx create-next-app@latest
 - WSL을 쓰면 되나 Hot reloading이 문제가 생김
 
 # 디렉토리 구성하기
--[username]은 사용자 프로필
--i/flow/signup이나 compose/tweet은 페이지 전환 없이 모달 띄워야 함
--로그인 후에는 /home으로 redirect
+- [username]은 사용자 프로필
+- i/flow/signup이나 compose/tweet은 페이지 전환 없이 모달 띄워야 함
+- 로그인 후에는 /home으로 redirect
+- /login도 /i/flow/login으로 redirect 
 
 ## Routing Group
-- (afterLogin) 폴더는 실제로 경로에 반영되지는 않음
+- (afterLogin), (beforeLogin) 폴더는 실제로 경로에 반영되지는 않음
 - 하위 폴더들에 layout 적용 용도
 
-## parallel router 적용
+## parallel router, intercepting routes 적용
+[링크](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes)
+
 i/flow/signup과 i/flow/login은 이걸로 처리
 
-[링크](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes)
-compose/tweet도 이걸로 처리
-- @modal/compose/tweet으로 바꾸고 parallel router 적용
-- @modal이라는 slot 사용하면 props.modal로 접근 가능
-- parallel router 적용 시 default.tsx 꼭 넣어주어야 함!!!
-새로고침할 때 주의할 것!!!
-- compose/tweet 폴더 한 번 더 만들어주기
+### i/flow/signup, i/flow/login 모달 시 주의
+- (beforeLogin) 내부의 @modal 안에 (.)/flow/signup을 만들어야 함
+- (beforeLogin)과 동등 레벨에 만드는 경우 The default export is not a React Component in page 에러 발생
+- /login에서 /i/flow/login으로 가기 위해서는 redirect로는 안 되고, router.replace를 해야 함. "use client" 사용 필요.
 
-## intercepting routes
-- 이것도 고려 대상(home 폴더 안에 @modal/(..)compose/tweet으로 만드는)
-- home 폴더 안에 @modal은 app/layout.tsx에서 인식되지 않아서 사용 불가
 
 # use client vs use server
 다음 에러가 나는 부분은 분리하자
@@ -49,3 +46,22 @@ at RootLayout (./src/app/layout.tsx:29:86)
 at stringify (<anonymous>)
 ```
 NavIcons로 아이콘들 분리
+
+### compose/tweet 처리
+compose/tweet도 이걸로 처리
+- @modal/compose/tweet으로 바꾸고 parallel router 적용
+- @modal이라는 slot 사용하면 props.modal로 접근 가능
+- parallel router 적용 시 default.tsx 꼭 넣어주어야 함!!!
+새로고침할 때 주의할 것!!!
+- 새로고침 시에도 백그라운드는 home이 보여야 함
+- compose/tweet 폴더 한 번 더 만들어주기
+
+### home/@modal/(..)compose/tweet은 안 되나요?
+- home 폴더 안에 @modal은 app/(afterLogin)/layout.tsx에서 인식되지 않아서 사용 불가
+
+# 페이지 접근 권한
+// TODO: 확인 필요
+- (afterLogin) 내부의 [username]/status/[id] 페이지는 모두 공개
+- 그 외 (afterLogin) 페이지들은 로그인한 사람만 접근 가능
+
+// TODO: 왼쪽 메뉴 바꾸기

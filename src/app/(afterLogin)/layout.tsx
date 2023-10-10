@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import NavIcons from "@/components/root/NavIcons";
 import {NextPage} from "next";
+import Trend from "@/components/home/Trend";
+import FollowRecommend from "@/components/home/FollowRecommend";
 
 interface Props {
   children: React.ReactNode,
@@ -85,8 +87,22 @@ const Layout: NextPage<Props> = ({
               </svg>
               <input type="search" placeholder="검색"/>
             </form>
-            <div className={style.trend}>나를 위한 트렌드</div>
-            <div className={style.followRecommend}>팔로우 추천</div>
+            <div className={style.trend}>
+              <h3>나를 위한 트렌드</h3>
+              <Trend />
+              <Trend />
+              <Trend />
+              <Trend />
+              <Trend />
+              <Trend />
+              <Trend />
+            </div>
+            <div className={style.followRecommend}>
+              <h3>팔로우 추천</h3>
+              <FollowRecommend />
+              <FollowRecommend />
+              <FollowRecommend />
+            </div>
           </section>
         </div>
       </div>

@@ -67,7 +67,7 @@
 }
 
 .logOutButton {
-  width: inherit;
+  width: 258px;
   height: 66px;
   padding: 12px;
   display: flex;
@@ -119,6 +119,7 @@
 .logo {
   display: inline-block;
   height: 56px;
+  margin-top: 2px;
 }
 
 .logoPill {
@@ -159,7 +160,7 @@
   width: 350px;
   border-radius: 21px;
   background-color: rgb(239, 243, 244);
-  margin-top: 4px;
+  margin-top: 6px;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -168,7 +169,7 @@
 
 .search svg {
   margin-left: 20px;
-  color: rgb(83, 100, 113);
+  fill: rgb(83, 100, 113);
 }
 
 .search input {
@@ -176,6 +177,7 @@
   background-color: inherit;
   border: none;
   padding: 12px;
+  margin-left: 5px;
   font-size: 15px;
 }
 

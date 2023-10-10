@@ -1,0 +1,19 @@
+.container {
+    padding: 12px 0;
+    height: 82px;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
+.count {
+    color: rgb(83, 100, 113);
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: lighter;
+}
