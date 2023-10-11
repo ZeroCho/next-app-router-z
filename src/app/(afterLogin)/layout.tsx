@@ -1,18 +1,72 @@
 import style from "./layout.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import NavIcons from "@/components/root/NavIcons";
+import NavIcons from "@/app/(afterLogin)/_component/NavIcons";
 import {NextPage} from "next";
-import Trend from "@/components/home/Trend";
-import FollowRecommend from "@/components/home/FollowRecommend";
+import FollowRecommend from "@/app/(afterLogin)/home/_component/FollowRecommend";
+import LogOutButton from "@/app/(afterLogin)/_component/LogOutButton";
+import {Hashtag} from "@/model/Hashtag";
+import {User} from "@/model/User";
+import RightSearchZone from "@/app/(afterLogin)/_component/RightSearchZone";
+import React from "react";
+import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
+
+export async function getMyInfo() {
+  const res = await fetch('http://localhost:9090/api/user', {
+    next: { tags: ['myInfo'] },
+    credentials: 'include',
+  });
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  const body = await res.json();
+  console.log('data', body);
+
+  return body;
+}
+
+export async function getTrends() {
+  const res = await fetch('http://localhost:9090/api/trends');
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
+async function getFollowRecommends() {
+  const res = await fetch('http://localhost:9090/api/followRecommends');
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
 
 interface Props {
   children: React.ReactNode,
   modal: React.ReactNode,
 }
-const Layout: NextPage<Props> = ({
+const Layout: NextPage<Props> = async ({
                                  children, modal
                                }) => {
+  const me = await getMyInfo();
+  const trends: Hashtag[] = await getTrends();
+  const followRecommends: User[] = await getFollowRecommends();
+
+
   return (
     <div className={style.container}>
       <header className={style.leftSectionWrapper}>
@@ -29,15 +83,13 @@ const Layout: NextPage<Props> = ({
                   <Link href="/home">
                     <div className={style.navPill}>
                       <NavIcons type="/home"/>
-                      <div>홈</div>
                     </div>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search">
+                  <Link href="/explore">
                     <div className={style.navPill}>
-                      <NavIcons type="/search"/>
-                      <div>탐색하기</div>
+                      <NavIcons type="/explore"/>
                     </div>
                   </Link>
                 </li>
@@ -45,32 +97,22 @@ const Layout: NextPage<Props> = ({
                   <Link href="/messages">
                     <div className={style.navPill}>
                       <NavIcons type="/messages"/>
-                      <div>쪽지</div>
                     </div>
                   </Link>
                 </li>
-                <li>
-                  <Link href="/username"> {/* TODO: username 대신 내 이름으로 */}
+                {me?.id && <li>
+                  <Link href={`/${me?.id}`}>
                     <div className={style.navPill}>
                       <NavIcons type="/username"/>
-                      <div>프로필</div>
                     </div>
                   </Link>
-                </li>
+                </li>}
                 <div>
                   <Link href="/compose/tweet" className={style.postButton}>게시하기</Link>
                 </div>
               </ul>
             </nav>
-            <div className={style.logOutButton}>
-              <div className={style.logOutUserImage}>
-                <img src="/5Udwvqim.jpg" alt="me"/>
-              </div>
-              <div className={style.logOutUserName}>
-                <div>조현영</div>
-                <div>@zerohch0</div>
-              </div>
-            </div>
+            <LogOutButton />
           </div>
         </section>
       </header>
@@ -78,30 +120,11 @@ const Layout: NextPage<Props> = ({
         <div className={style.rightSectionInner}>
           {children}
           <section className={style.rightSection}>
-            <form className={style.search}>
-              <svg width={20} viewBox="0 0 24 24" aria-hidden="true">
-                <g>
-                  <path
-                    d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"></path>
-                </g>
-              </svg>
-              <input type="search" placeholder="검색"/>
-            </form>
-            <div className={style.trend}>
-              <h3>나를 위한 트렌드</h3>
-              <Trend />
-              <Trend />
-              <Trend />
-              <Trend />
-              <Trend />
-              <Trend />
-              <Trend />
-            </div>
+            <RightSearchZone />
+            <TrendSection trends={trends} />
             <div className={style.followRecommend}>
               <h3>팔로우 추천</h3>
-              <FollowRecommend />
-              <FollowRecommend />
-              <FollowRecommend />
+              {followRecommends.map((v) => <FollowRecommend key={v.id} user={v} />)}
             </div>
           </section>
         </div>

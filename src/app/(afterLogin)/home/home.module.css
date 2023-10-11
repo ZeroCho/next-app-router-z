@@ -12,7 +12,7 @@
 
 .homeFixed {
   position: fixed;
-  width: inherit;
+  width: 598px;
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   border-color: rgb(239, 243, 244);
@@ -32,12 +32,13 @@
   display: flex;
 }
 
-.homeTab a {
+.homeTab > div {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 15px;
+  cursor: pointer;
   position: relative;
 }
 .homeTab a:hover {

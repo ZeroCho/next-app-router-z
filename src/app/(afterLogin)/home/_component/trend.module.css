@@ -1,6 +1,10 @@
 .container {
-    padding: 12px 0;
+    padding: 12px 16px;
     height: 82px;
+    display: block;
+}
+.container:hover {
+    background-color: rgba(0,0,0,0.03);
 }
 
 .title {

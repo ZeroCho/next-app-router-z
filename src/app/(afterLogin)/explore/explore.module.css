@@ -1,0 +1,64 @@
+.main {
+  width: 600px;
+  border-color: rgb(239, 243, 244);
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-right-style: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.formZone {
+  padding-left: 16px;
+  width: 566px;
+  margin-bottom: 60px;
+}
+
+.search {
+  height: 42px;
+  width: inherit;
+  border-radius: 21px;
+  background-color: rgb(239, 243, 244);
+  margin-top: 6px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+}
+
+.search svg {
+  margin-left: 20px;
+  fill: rgb(83, 100, 113);
+}
+
+.search input {
+  outline: none;
+  background-color: inherit;
+  border: none;
+  padding: 12px;
+  margin-left: 5px;
+  font-size: 15px;
+}
+
+.trendBg {
+  margin-top: 60px;
+  background-color: rgb(247, 249, 249);
+}
+.trend {
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+}
+
+.followRecommend {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: rgb(247, 249, 249);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+}

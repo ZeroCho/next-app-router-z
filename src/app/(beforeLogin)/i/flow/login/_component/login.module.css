@@ -82,9 +82,14 @@
     background-color: rgb(15, 20, 25);
     color: white;
     font-size: 17px;
+    cursor: pointer;
+    border: none;
 }
 .actionButton:disabled {
     opacity: 0.5;
+}
+.actionButton:hover {
+    background-color: rgb(39,44,48);
 }
 
 .closeButton {

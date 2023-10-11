@@ -24,6 +24,12 @@
     flex-direction: column;
 }
 
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
 .modalBody {
     padding: 0 16px;
     flex: 1;
@@ -94,6 +100,7 @@
 }
 
 .actionButton {
+    cursor: pointer;
     width: 94px;
     height: 36px;
     border-radius: 18px;

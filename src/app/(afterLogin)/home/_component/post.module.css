@@ -4,6 +4,11 @@
     border-color: rgb(239, 243, 244);
     border-bottom-width: 1px;
     border-bottom-style: solid;
+    transition-property: background-color, box-shadow;
+    transition-duration: 0.2s;
+}
+.post:hover {
+    background-color: rgba(0,0,0,0.03);
 }
 
 .postUserSection {

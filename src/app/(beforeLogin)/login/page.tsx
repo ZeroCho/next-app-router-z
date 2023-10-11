@@ -1,6 +1,6 @@
 "use client";
 
-import LoginComponent from '@/components/root/Login';
+import LoginComponent from '@/app/(beforeLogin)/_component/Login';
 import {redirect, useRouter} from "next/navigation";
 
 export default function Login() {

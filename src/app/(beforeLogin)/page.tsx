@@ -1,13 +1,14 @@
 import React from "react";
 import type {Metadata, NextPage} from "next";
-import Login from "@/components/root/Login";
+import Login from "@/app/(beforeLogin)/_component/Login";
 import {redirect} from "next/navigation";
+import {getMyInfo} from "@/app/(afterLogin)/layout";
 
-const IS_LOGGED_IN = true;
+const IS_LOGGED_IN = false;
 export async function generateMetadata(): Promise<Metadata> {
+  const me = await getMyInfo();
   // read route params
-  const isLoggedIn = IS_LOGGED_IN;
-  if (isLoggedIn) {
+  if (me) {
     return {
       title: 'Z',
       description: 'Z.com inspired by X.com',
@@ -18,9 +19,9 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const Home: NextPage = () => {
-  const isLoggedIn = IS_LOGGED_IN;
-  if (isLoggedIn) {
+const Home: NextPage = async () => {
+  const me = await getMyInfo();
+  if (me) {
     redirect('/home');
   }
   return <Login />
