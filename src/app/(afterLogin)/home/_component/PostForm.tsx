@@ -1,13 +1,14 @@
 "use client";
 
 import style from "@/app/(afterLogin)/home/home.module.css";
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import {useUserStore} from "@/store/user";
 import {getMyInfo} from "@/app/(afterLogin)/layout";
 
 export default function PostForm() {
   const me = useUserStore(store => store.me);
   const add = useUserStore(store => store.add);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!me) {
@@ -17,6 +18,10 @@ export default function PostForm() {
         })
     }
   }, [me, add]);
+
+  const onClickButton = () => {
+    imageRef.current?.click();
+  }
 
   if (!me) {
     return null;
@@ -34,8 +39,8 @@ export default function PostForm() {
         <div className={style.postButtonSection}>
           <div className={style.footerButtons}>
             <div className={style.footerButtonLeft}>
-              <input type="file" name="imageFiles" multiple hidden />
-              <button className={style.uploadButton}>
+              <input type="file" name="imageFiles" multiple hidden ref={imageRef} />
+              <button className={style.uploadButton} type="button" onClick={onClickButton}>
                 <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
                   <g>
                     <path

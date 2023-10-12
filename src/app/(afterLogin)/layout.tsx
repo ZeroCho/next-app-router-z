@@ -24,14 +24,13 @@ export async function getMyInfo() {
     throw new Error('Failed to fetch data')
   }
 
-  const body = await res.json();
-  console.log('data', body);
-
-  return body;
+  return res.json();
 }
 
 export async function getTrends() {
-  const res = await fetch('http://localhost:9090/api/trends');
+  const res = await fetch('http://localhost:9090/api/trends', {
+    cache: 'no-store',
+  });
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
@@ -124,7 +123,7 @@ const Layout: NextPage<Props> = async ({
             <TrendSection trends={trends} />
             <div className={style.followRecommend}>
               <h3>팔로우 추천</h3>
-              {followRecommends.map((v) => <FollowRecommend key={v.id} user={v} />)}
+              {followRecommends.map((v) => <FollowRecommend key={Math.random()} user={v} />)}
             </div>
           </section>
         </div>

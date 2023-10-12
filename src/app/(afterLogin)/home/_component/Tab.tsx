@@ -1,17 +1,18 @@
 "use client";
 
 import style from "@/app/(afterLogin)/home/home.module.css";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {useRouter} from "next/navigation";
+import {TabContext} from "@/app/(afterLogin)/home/_component/TabProvider";
 
 export default function Tab() {
-  const [current, setCurrent] = useState('rec');
+  const { tab, setTab } = useContext(TabContext);
 
   const onClickRec = () => {
-    setCurrent('rec');
+    setTab('rec');
   }
   const onClickFol = () => {
-    setCurrent('fol');
+    setTab('fol');
   }
 
   return (
@@ -19,11 +20,11 @@ export default function Tab() {
       <div className={style.homeText}>홈</div>
       <div className={style.homeTab}>
         <div onClick={onClickRec}>추천
-          <div className={style.tabIndicator} hidden={current === 'fol'}></div>
+          <div className={style.tabIndicator} hidden={tab === 'fol'}></div>
         </div>
         <div onClick={onClickFol}>
           팔로우 중
-          <div className={style.tabIndicator} hidden={current === 'rec'}></div>
+          <div className={style.tabIndicator} hidden={tab === 'rec'}></div>
         </div>
       </div>
     </div>

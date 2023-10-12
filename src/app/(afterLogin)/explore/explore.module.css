@@ -53,6 +53,9 @@
   margin-bottom: 12px;
   padding: 12px 16px;
 }
+.trend h3 {
+  padding: 12px 16px;
+}
 
 .followRecommend {
   font-size: 20px;

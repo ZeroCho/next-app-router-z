@@ -2,14 +2,17 @@
 
 import style from './modal.module.css';
 import {useRouter} from "next/navigation";
-import {ChangeEventHandler, FormEventHandler, useState} from "react";
+import React, {ChangeEventHandler, FormEventHandler, useRef, useState} from "react";
 import {usePostStore} from "@/store/post";
 import {Post} from "@/model/Post";
+import {useUserStore} from "@/store/user";
 
 export default function TweetModal() {
   const router = useRouter();
   const [content, setContent] = useState('');
   const add = usePostStore(store => store.add);
+  const me = useUserStore(store => store.me);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const onClickClose = () => {
     router.back();
@@ -45,6 +48,14 @@ export default function TweetModal() {
     });
   }
 
+  const onClickButton = () => {
+    imageRef.current?.click();
+  }
+
+  if (!me) {
+    return;
+  }
+
   return (
     <>
       <div className={style.modalBackground}>
@@ -62,7 +73,7 @@ export default function TweetModal() {
             <div className={style.modalBody}>
               <div className={style.postUserSection}>
                 <div className={style.postUserImage}>
-                  <img src="/5Udwvqim.jpg" alt="zerocho"/>
+                  <img src={me.image} alt={me.id} />
                 </div>
               </div>
               <div className={style.inputDiv}>
@@ -76,7 +87,8 @@ export default function TweetModal() {
               <div className={style.modalDivider}/>
               <div className={style.footerButtons}>
                 <div className={style.footerButtonLeft}>
-                  <button className={style.uploadButton}>
+                  <input type="file" name="imageFiles" multiple hidden ref={imageRef} />
+                  <button className={style.uploadButton} type="button" onClick={onClickButton}>
                     <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
                       <g>
                         <path

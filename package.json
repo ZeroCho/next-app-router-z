@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "mock": "npx tsx ./src/mocks/http.ts"
+    "mock": "npx tsx watch ./src/mocks/http.ts"
   },
   "dependencies": {
     "next": "13.5.4",

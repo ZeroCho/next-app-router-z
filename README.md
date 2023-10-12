@@ -62,7 +62,7 @@ at stringify (<anonymous>)
 NavIcons로 아이콘들 분리
 
 - _components 폴더에 주로 Client Component 생성
-- useState, useRef, useEffect, useContext, useRouter, useSearchParams 등등 많다
+- useState, useRef, useEffect, useContext, useRouter, useSearchParams, onClick 등등 많다
 
 ## 서버 컴포넌트와 클라이언트 컴포넌트 같이 쓰기
 - Client Component에서 Server Component import하면 안 됨
@@ -75,6 +75,7 @@ npm install msw --save-dev
 npx msw init public/ --save
 ```
 [해당 이슈로 msw 서버에서 사용 불가](https://github.com/mswjs/msw/issues/1644)
+- 위 이슈 해결되기 전까지는 http 서버 직접 생성
 
 ## 페이지 접근 권한
 middleware.ts로 페이지 접근 제어
@@ -88,6 +89,7 @@ middleware.ts로 페이지 접근 제어
 ## Zustand
 "use client" 아래에서만 사용 가능
 - client component에서는 async component 불가능
+- 도입 후 새로고침 한 번씩 해볼 것
 
 ## route.ts
 /src/app/api/revalidate/route.ts 생성
