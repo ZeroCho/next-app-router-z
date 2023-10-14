@@ -1,4 +1,5 @@
 import {rest} from 'msw'
+import { faker } from '@faker-js/faker';
 
 export const handlers = [
   // Handles a POST /login request
@@ -38,38 +39,39 @@ export const handlers = [
   }),
 
   rest.get('/api/postRecommends', (req, res, ctx) => {
+    const cursor = parseInt(req.url.searchParams.get('cursor') || '0');
     return res(
       ctx.json(
         [
           {
-            postId: 1,
+            postId: cursor + 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'Z.com is so marvelous. I\'m gonna buy that.',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: `${cursor + 1} Z.com is so marvelous. I'm gonna buy that.`,
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 2,
+            postId: cursor + 2,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'Z.com is so marvelous. I\'m gonna buy that.',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: `${cursor + 2} Z.com is so marvelous. I'm gonna buy that.`,
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 3,
+            postId: cursor + 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'Z.com is so marvelous. I\'m gonna buy that.',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: `${cursor + 3} Z.com is so marvelous. I'm gonna buy that.`,
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 4,
+            postId: cursor + 4,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'Z.com is so marvelous. I\'m gonna buy that.',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: `${cursor + 4} Z.com is so marvelous. I'm gonna buy that.`,
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 5,
+            postId: cursor + 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'Z.com is so marvelous. I\'m gonna buy that.',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
         ]
       )
@@ -77,38 +79,39 @@ export const handlers = [
   }),
 
   rest.get('/api/followingPosts', (req, res, ctx) => {
+    const cursor = parseInt(req.url.searchParams.get('cursor') || '0');
     return res(
       ctx.json(
         [
           {
-            postId: 1,
+            postId: cursor + 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 2,
+            postId: cursor + 2,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 3,
+            postId: cursor + 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 4,
+            postId: cursor + 4,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
-            postId: 5,
+            postId: cursor + 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
         ]
       )
@@ -130,32 +133,32 @@ export const handlers = [
           {
             postId: 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'My Posts Only',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 2,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'My Posts Only',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'My Posts Only',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 4,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'My Posts Only',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: 'My Posts Only',
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
         ]
       )
@@ -185,8 +188,8 @@ export const handlers = [
       ctx.json(
         [
           {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-          {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-          {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'}
+          {id: faker.internet.userName().toLowerCase(), nickname: faker.person.fullName(), image: faker.image.urlLoremFlickr()},
+          {id: faker.internet.userName().toLowerCase(), nickname: faker.person.fullName(), image: faker.image.urlLoremFlickr()}
         ]
       )
     )
@@ -202,7 +205,7 @@ export const handlers = [
           id: Math.random(),
           User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
           content: body.content,
-          Images: [{link: '/5Udwvqim.jpg'}]
+          Images: [],
         },
       )
     )
@@ -219,31 +222,31 @@ export const handlers = [
             postId: 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 2,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 4,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
         ],
       )
@@ -257,7 +260,7 @@ export const handlers = [
           postId: 6,
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
           content: `single post`,
-          Images: [{link: '/-NEfK-ll.jpg'}]
+          Images: [{link: faker.image.urlLoremFlickr()}]
         },
       )
     )
@@ -270,32 +273,32 @@ export const handlers = [
           {
             postId: 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: `My Answer is this`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 2,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
-            content: `My Answer is this`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: `My Answer is this`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 4,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
-            content: `My Answer is this`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
           {
             postId: 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-            content: `My Answer is this`,
-            Images: [{link: '/-NEfK-ll.jpg'}]
+            content: faker.lorem.text(),
+            Images: [{link: faker.image.urlLoremFlickr()}]
           },
         ],
       )
@@ -310,7 +313,7 @@ export const handlers = [
           postId: Math.random(),
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
           content: `new comment added`,
-          Images: [{link: '/-NEfK-ll.jpg'}]
+          Images: [{link: faker.image.urlLoremFlickr()}]
         },
       )
     )
@@ -323,7 +326,7 @@ export const handlers = [
           postId: 6,
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
           content: `single post`,
-          Images: [{link: '/-NEfK-ll.jpg'}]
+          Images: [{link: faker.image.urlLoremFlickr()}]
         },
       )
     )
@@ -346,29 +349,13 @@ export const handlers = [
   rest.post('/api/posts/:id/heart', async (req, res, ctx) => {
     const body = await req.json();
     return res(
-      ctx.json(
-        {
-          id: Math.random(),
-          User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
-          content: body.content,
-          Images: [{link: '/5Udwvqim.jpg'}]
-        },
-      )
+      ctx.json('ok')
     )
   }),
 
   rest.delete('/api/posts/:id/heart', async (req, res, ctx) => {
     const body = await req.json();
-    return res(
-      ctx.json(
-        {
-          id: Math.random(),
-          User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
-          content: body.content,
-          Images: [{link: '/5Udwvqim.jpg'}]
-        },
-      )
-    )
+    return res(ctx.json('ok'));
   }),
 
   // Handles a GET /user request

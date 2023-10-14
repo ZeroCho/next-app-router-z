@@ -10,8 +10,8 @@ type Props = {
   id: string;
 }
 export default function UserPosts({id}: Props) {
-  const {data} = useQuery<IPost[], Object, IPost[], [_key: string, { id: string }]>({
-    queryKey: ["userPosts", {id}],
+  const {data} = useQuery<IPost[], Object, IPost[], [_key: string, _key2: string, { id: string }]>({
+    queryKey: ["posts", "users", {id}],
     queryFn: getUserPosts,
   });
 

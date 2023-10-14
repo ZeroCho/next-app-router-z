@@ -71,20 +71,19 @@ NavIcons로 아이콘들 분리
 # 백엔드 개발자가 API를 아직 못 만들었다.
 ## MSW
 ```
-npm install msw --save-dev
+npm install msw @faker-js/faker -D
 npx msw init public/ --save
 ```
 [해당 이슈로 msw 서버에서 사용 불가](https://github.com/mswjs/msw/issues/1644)
 - 위 이슈 해결되기 전까지는 http 서버 직접 생성
 
+- faker.js는 더미데이터 생성용
+
 ## 페이지 접근 권한
 middleware.ts로 페이지 접근 제어
 
-// TODO: 확인 필요
-- (afterLogin) 내부의 [username]/status/[id] 페이지는 모두 공개
+- (afterLogin) 내부의 [username]과 [username]/status/[id] 페이지는 모두 공개
 - 그 외 (afterLogin) 페이지들은 로그인한 사람만 접근 가능
-
-// TODO: 왼쪽 메뉴 바꾸기
 
 ## Zustand
 "use client" 아래에서만 사용 가능
@@ -98,9 +97,13 @@ middleware.ts로 페이지 접근 제어
 ```
 npm i @tanstack/react-query @tanstack/react-query-devtools
 ```
-UserPosts, SearchResults에서 type 잘 맞춰주기
+UserPosts, SearchResult에서 type 잘 맞춰주기
 
 ### Optimistic Update
 [링크](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates#updating-a-list-of-todos-when-adding-a-new-todo)
 
 ### 인피니트 스크롤링
+[링크](https://tanstack.com/query/v4/docs/react/guides/infinite-queries)
+```
+npm install react-intersection-observer
+```

@@ -11,8 +11,8 @@ type Props = {
   postId: string;
 }
 export default function Comments({id, postId}: Props) {
-  const {data} = useQuery<IPost[], Object, IPost[], [_key: string, { id: string, postId: string }]>({
-    queryKey: ["comments", {id, postId }],
+  const {data} = useQuery<IPost[], Object, IPost[], [_key: string, _key2: string, { id: string, postId: string }]>({
+    queryKey: ["posts", "comments", {id, postId }],
     queryFn: getComments,
   });
 

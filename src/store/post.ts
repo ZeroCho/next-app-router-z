@@ -10,7 +10,7 @@ type PostStore = {
 
 export const usePostStore = create<PostStore>((set) => ({
   myPosts: [],
-  add: (data: Post) => set((state) => ({myPosts: [...state.myPosts, data]})),
+  add: (data: Post) => set((state) => ({myPosts: [data, ...state.myPosts]})),
   remove: (id: number) => set((state) => ({myPosts: state.myPosts.filter((v) => v.postId !== id)})),
   removeAll: () => set({myPosts: []}),
 }));

@@ -1,7 +1,7 @@
 "use client";
 
 import style from "./postForm.module.css";
-import React, {ChangeEventHandler, FormEventHandler, useEffect, useRef, useState} from "react";
+import React, {ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useRef, useState} from "react";
 import {useUserStore} from "@/store/user";
 import {getMyInfo} from "@/app/(afterLogin)/layout";
 import {Post} from "@/model/Post";
@@ -31,7 +31,6 @@ export default function PostForm() {
     setContent(e.target.value);
   }
 
-
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     fetch('http://localhost:9090/api/posts', {
@@ -39,6 +38,9 @@ export default function PostForm() {
       body: JSON.stringify({
         content
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
       credentials: 'include',
     }).then((response: Response) => {
       console.log(response.status);

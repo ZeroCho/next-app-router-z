@@ -30,6 +30,9 @@ export default function TweetModal() {
       body: JSON.stringify({
         content
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
       credentials: 'include',
     }).then((response: Response) => {
       console.log(response.status);
@@ -40,7 +43,7 @@ export default function TweetModal() {
     .then((data: Post) => {
       if (data) {
         add(data);
-        router.replace('/home');
+        router.back();
       }
     })
       .catch((err) => {

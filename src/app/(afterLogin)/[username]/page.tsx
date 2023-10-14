@@ -15,7 +15,7 @@ type Props = {
 export default async function Page({params}: Props) {
   const user: User = await getUser(params.username);
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['userPosts', {id: params.username}], getUserPosts);
+  await queryClient.prefetchQuery(['posts', 'users', {id: params.username}], getUserPosts);
   const dehydratedState = dehydrate(queryClient)
 
   return (

@@ -1,5 +1,6 @@
-export async function getPostRecommends() {
-  const res = await fetch('http://localhost:9090/api/postRecommends', {
+
+export async function getPostRecommends({pageParam}: { pageParam?: number }) {
+  const res = await fetch(`http://localhost:9090/api/postRecommends${pageParam ? `?cursor=${pageParam}` : ''}`, {
     cache: 'no-store', // 캐싱 안 함
   });
   // The return value is *not* serialized

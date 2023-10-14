@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 const Home: NextPage = async () => {
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['postRecommends'], getPostRecommends)
-  await queryClient.prefetchQuery(['followingPosts'], getFollowingPosts)
+  await queryClient.prefetchInfiniteQuery(['posts', "infinite", 'recommends'], getPostRecommends)
+  await queryClient.prefetchInfiniteQuery(['posts', "infinite", 'followings'], getFollowingPosts)
   const dehydratedState = dehydrate(queryClient)
 
   return (

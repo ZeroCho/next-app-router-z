@@ -29,7 +29,7 @@ async function getSinglePost({id, postId}: { id: string, postId: string }) {
 export default async function Page({params}: Props) {
   const post: IPost = await getSinglePost({id: params.username, postId: params.id});
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['comments', {id: params.username, postId: params.id}], getComments);
+  await queryClient.prefetchQuery(['posts', 'comments', {id: params.username, postId: params.id}], getComments);
   const dehydratedState = dehydrate(queryClient)
 
   return <div className={style.main}>
