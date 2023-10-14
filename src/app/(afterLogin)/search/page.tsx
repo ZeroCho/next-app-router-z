@@ -2,15 +2,17 @@ import {Metadata} from "next";
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import style from './search.module.css';
 import React from "react";
-import {Post as IPost} from "@/model/Post";
-import Post from "@/app/(afterLogin)/home/_component/Post";
 import BackButton from "@/app/(afterLogin)/search/_component/BackButton";
 import {redirect} from "next/navigation";
 import Tab from "@/app/(afterLogin)/search/_component/Tab";
+import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
+import {dehydrate, Hydrate} from "@tanstack/react-query";
+import {getSearchResult} from "@/app/(afterLogin)/search/_lib/getSearchResult";
+import SearchResult from "@/app/(afterLogin)/search/_component/SearchResult";
 
 type Props = {
   params: { id: string }
-  searchParams: { q: string, pf?: string }
+  searchParams: { q: string, pf?: string, f?: string }
 }
 
 export async function generateMetadata({params, searchParams}: Props): Promise<Metadata> {
@@ -20,21 +22,10 @@ export async function generateMetadata({params, searchParams}: Props): Promise<M
   }
 }
 
-async function getSearchResult(searchParams: Props['searchParams']) {
-  const res = await fetch(`http://localhost:9090/api/search/${searchParams.q}?${new URLSearchParams(searchParams).toString()}`, {
-    cache: 'no-store',
-  })
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json();
-}
-
 export default async function Search({searchParams}: Props) {
-  const searchResult: IPost[] = await getSearchResult(searchParams);
+  const queryClient = getQueryClient()
+  await queryClient.prefetchQuery(['searchResults', searchParams], getSearchResult);
+  const dehydratedState = dehydrate(queryClient)
 
   if (!searchParams.q) {
     redirect('/explore');
@@ -42,20 +33,22 @@ export default async function Search({searchParams}: Props) {
 
   return (
     <main className={style.main}>
-      <div className={style.searchTop}>
-        <div className={style.searchZone}>
-          <div className={style.buttonZone}>
-            <BackButton/>
+      <Hydrate state={dehydratedState}>
+        <div className={style.searchTop}>
+          <div className={style.searchZone}>
+            <div className={style.buttonZone}>
+              <BackButton/>
+            </div>
+            <div className={style.formZone}>
+              <SearchForm q={searchParams.q}/>
+            </div>
           </div>
-          <div className={style.formZone}>
-            <SearchForm q={searchParams.q}/>
-          </div>
+          <Tab/>
         </div>
-        <Tab/>
-      </div>
-      <div className={style.list}>
-        {searchResult.map((v) => <Post key={v.postId} post={v}/>)}
-      </div>
+        <div className={style.list}>
+          <SearchResult searchParams={searchParams} />
+        </div>
+      </Hydrate>
     </main>
   )
 }

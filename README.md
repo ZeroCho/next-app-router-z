@@ -93,3 +93,14 @@ middleware.ts로 페이지 접근 제어
 
 ## route.ts
 /src/app/api/revalidate/route.ts 생성
+
+## React Query 도입하기
+```
+npm i @tanstack/react-query @tanstack/react-query-devtools
+```
+UserPosts, SearchResults에서 type 잘 맞춰주기
+
+### Optimistic Update
+[링크](https://tanstack.com/query/v4/docs/react/guides/optimistic-updates#updating-a-list-of-todos-when-adding-a-new-todo)
+
+### 인피니트 스크롤링

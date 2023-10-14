@@ -1,6 +1,6 @@
 "use client";
 
-import Post from "@/app/(afterLogin)/home/_component/Post";
+import Post from "@/app/(afterLogin)/_component/Post";
 import {usePostStore} from "@/store/post";
 
 export default function MyPosts() {

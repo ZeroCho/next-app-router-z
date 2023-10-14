@@ -250,6 +250,72 @@ export const handlers = [
     )
   }),
 
+  rest.get('/api/users/:id/posts/:postId', async (req, res, ctx) => {
+    return res(
+      ctx.json(
+        {
+          postId: 6,
+          User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
+          content: `single post`,
+          Images: [{link: '/-NEfK-ll.jpg'}]
+        },
+      )
+    )
+  }),
+
+  rest.get('/api/users/:id/posts/:postId/comments', async (req, res, ctx) => {
+    return res(
+      ctx.json(
+        [
+          {
+            postId: 1,
+            User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
+            content: `My Answer is this`,
+            Images: [{link: '/-NEfK-ll.jpg'}]
+          },
+          {
+            postId: 2,
+            User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
+            content: `My Answer is this`,
+            Images: [{link: '/-NEfK-ll.jpg'}]
+          },
+          {
+            postId: 3,
+            User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
+            content: `My Answer is this`,
+            Images: [{link: '/-NEfK-ll.jpg'}]
+          },
+          {
+            postId: 4,
+            User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
+            content: `My Answer is this`,
+            Images: [{link: '/-NEfK-ll.jpg'}]
+          },
+          {
+            postId: 5,
+            User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
+            content: `My Answer is this`,
+            Images: [{link: '/-NEfK-ll.jpg'}]
+          },
+        ],
+      )
+    )
+  }),
+
+  rest.post('/api/posts/:id/comments', async (req, res, ctx) => {
+    return res(
+      ctx.status(201),
+      ctx.json(
+        {
+          postId: Math.random(),
+          User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
+          content: `new comment added`,
+          Images: [{link: '/-NEfK-ll.jpg'}]
+        },
+      )
+    )
+  }),
+
   rest.get('/api/posts/:id', async (req, res, ctx) => {
     return res(
       ctx.json(

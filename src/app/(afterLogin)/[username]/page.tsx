@@ -1,44 +1,22 @@
 import style from "./profile.module.css";
 import BackButton from "@/app/(afterLogin)/search/_component/BackButton";
 import React from "react";
-import Post from "@/app/(afterLogin)/home/_component/Post";
-import { Post as IPost } from '@/model/Post';
 import {User} from "@/model/User";
-
-async function getUser(id: string) {
-  const res = await fetch(`http://localhost:9090/api/users/${id}`, {
-    cache: 'no-store',
-  })
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    console.error('statusText', res.statusText);
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json();
-}
-
-async function getUserPosts(id: string) {
-  const res = await fetch(`http://localhost:9090/api/users/${id}/posts`, {
-    cache: 'no-store',
-  })
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json();
-}
+import {getUser} from "@/app/(afterLogin)/[username]/_lib/getUser";
+import UserPosts from "@/app/(afterLogin)/[username]/_component/UserPosts";
+import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
+import {dehydrate, Hydrate} from "@tanstack/react-query";
+import {getUserPosts} from "@/app/(afterLogin)/[username]/_lib/getUserPosts";
 
 type Props = {
-  params: { id: string }
+  params: { username: string }
 };
 
-export default async function Page({ params} : Props) {
-  const user: User = await getUser(params.id);
-  const posts: IPost[] = await getUserPosts(params.id);
+export default async function Page({params}: Props) {
+  const user: User = await getUser(params.username);
+  const queryClient = getQueryClient()
+  await queryClient.prefetchQuery(['userPosts', {id: params.username}], getUserPosts);
+  const dehydratedState = dehydrate(queryClient)
 
   return (
     <div className={style.main}>
@@ -56,7 +34,9 @@ export default async function Page({ params} : Props) {
         </div>
         <button className={style.followButton}>팔로우</button>
       </div>
-      {posts.map((v) => <Post post={v} key={v.postId} />)}
+      <Hydrate state={dehydratedState}>
+        <UserPosts id={params.username}/>
+      </Hydrate>
     </div>
   );
 }

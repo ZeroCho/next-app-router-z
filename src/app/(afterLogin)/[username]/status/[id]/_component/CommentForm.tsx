@@ -1,18 +1,24 @@
 "use client";
 
-import style from "./postForm.module.css";
+import style from "./commentForm.module.css";
 import React, {ChangeEventHandler, FormEventHandler, useEffect, useRef, useState} from "react";
 import {useUserStore} from "@/store/user";
 import {getMyInfo} from "@/app/(afterLogin)/layout";
 import {Post} from "@/model/Post";
-import {usePostStore} from "@/store/post";
+import {useParams} from "next/navigation";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
-export default function PostForm() {
+type Props = {
+  id: string;
+  postId: string;
+}
+export default function CommentForm({id, postId}: Props) {
+  const params = useParams<{ username: string, id: string }>();
   const me = useUserStore(store => store.me);
   const add = useUserStore(store => store.add);
   const imageRef = useRef<HTMLInputElement>(null);
-  const addPost = usePostStore(store => store.add);
   const [content, setContent] = useState('');
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     if (!me) {
@@ -23,18 +29,17 @@ export default function PostForm() {
     }
   }, [me, add]);
 
-  const onClickButton = () => {
-    imageRef.current?.click();
-  }
-
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setContent(e.target.value);
   }
 
+  const onClickButton = () => {
+    imageRef.current?.click();
+  }
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    fetch('http://localhost:9090/api/posts', {
+    fetch(`http://localhost:9090/api/posts/${params.id}/comments`, {
       method: 'post',
       body: JSON.stringify({
         content
@@ -48,7 +53,10 @@ export default function PostForm() {
     })
       .then((data: Post) => {
         if (data) {
-          addPost(data);
+          queryClient.setQueryData<Post[]>(
+            ['comments', {id, postId}],
+            (old) => [data, ...(old || [])],
+          );
           setContent('');
         }
       })
@@ -65,15 +73,15 @@ export default function PostForm() {
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={me.image} alt={me.id} />
+          <img src={me.image} alt={me.id}/>
         </div>
       </div>
       <div className={style.postInputSection}>
-        <input type="text" value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?"/>
+        <input type="text" value={content} onChange={onChange} placeholder="답글 게시하기"/>
         <div className={style.postButtonSection}>
           <div className={style.footerButtons}>
             <div className={style.footerButtonLeft}>
-              <input type="file" name="imageFiles" multiple hidden ref={imageRef} />
+              <input type="file" name="imageFiles" multiple hidden ref={imageRef}/>
               <button className={style.uploadButton} type="button" onClick={onClickButton}>
                 <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
                   <g>
@@ -83,7 +91,7 @@ export default function PostForm() {
                 </svg>
               </button>
             </div>
-            <button className={style.actionButton} disabled={!content}>게시하기</button>
+            <button className={style.actionButton} disabled={!content}>답글</button>
           </div>
         </div>
       </div>

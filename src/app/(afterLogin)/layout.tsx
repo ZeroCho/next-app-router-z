@@ -10,6 +10,7 @@ import {User} from "@/model/User";
 import RightSearchZone from "@/app/(afterLogin)/_component/RightSearchZone";
 import React from "react";
 import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
+import RQProvider from "./_component/RQProvider";
 
 export async function getMyInfo() {
   const res = await fetch('http://localhost:9090/api/user', {
@@ -117,7 +118,9 @@ const Layout: NextPage<Props> = async ({
       </header>
       <div className={style.rightSectionWrapper}>
         <div className={style.rightSectionInner}>
-          {children}
+          <RQProvider>
+            {children}
+          </RQProvider>
           <section className={style.rightSection}>
             <RightSearchZone />
             <TrendSection trends={trends} />

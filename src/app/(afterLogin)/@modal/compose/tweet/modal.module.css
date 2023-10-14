@@ -55,7 +55,9 @@
     border: none;
     cursor: pointer;
     border-radius: 17px;
-    background-color: #fff;
+    background-color: rgb(29, 155, 240, 0.01);
+    transition-duration: 0.2s;
+    transition-property: background-color;
     display: flex;
     align-items: center;
     justify-content: center;
