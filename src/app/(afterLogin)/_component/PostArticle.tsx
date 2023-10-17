@@ -15,6 +15,6 @@ export default function PostArticle({children, post }: { children: ReactNode, po
     router.push(`/${target.User.id}/status/${target.postId}`);
   }
   return (
-    <article className={style.post} onClick={onClick}>{children}</article>
+    <article className={style.post} onClickCapture={onClick}>{children}</article>
   )
 }

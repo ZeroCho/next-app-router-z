@@ -2,8 +2,13 @@ import style from "./post.module.css";
 import {Post as IPost} from '@/model/Post';
 import Link from "next/link";
 import ActionButtons from "@/app/(afterLogin)/_component/ActionButtons";
-import {redirect, RedirectType} from "next/navigation";
 import PostArticle from "@/app/(afterLogin)/_component/PostArticle";
+import dayjs from "dayjs";
+import 'dayjs/locale/ko';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.locale('ko');
+dayjs.extend(relativeTime)
 
 interface Props {
   post: IPost
@@ -31,12 +36,17 @@ const Post = ({post}: Props) => {
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
             <img src={target.User.image} alt={target.User.nickname}/>
           </Link>
+          <div className={style.postShade} />
         </div>
         <div className={style.postBody}>
           <Link href={`/${target.User.id}`}>
             <span className={style.postUserName}>{target.User.nickname}</span>
             &nbsp;
-            <span>@{target.User.id}</span>
+            <span className={style.postUserId}>@{target.User.id}</span>
+            &nbsp;
+            ·
+            &nbsp;
+            <span className={style.postDate}>{dayjs(target.createdAt).fromNow(true)}</span>
           </Link>
           <div>{target.content}</div>
           <div className={style.postImageSection}>

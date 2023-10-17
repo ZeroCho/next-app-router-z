@@ -47,31 +47,36 @@ export const handlers = [
             postId: cursor + 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `${cursor + 1} Z.com is so marvelous. I'm gonna buy that.`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 2,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `${cursor + 2} Z.com is so marvelous. I'm gonna buy that.`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `${cursor + 3} Z.com is so marvelous. I'm gonna buy that.`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 4,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `${cursor + 4} Z.com is so marvelous. I'm gonna buy that.`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
         ]
       )
@@ -87,31 +92,36 @@ export const handlers = [
             postId: cursor + 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 2,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 4,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: cursor + 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: 'Stop follow me. I\'m too famous,',
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
         ]
       )
@@ -134,31 +144,36 @@ export const handlers = [
             postId: 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 2,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 4,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
         ]
       )
@@ -222,31 +237,36 @@ export const handlers = [
             postId: 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 2,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 4,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: `Z.com search result for ${tag} ${live ? 'sort by date' : ''} ${followingOnly ? 'only following' : ''}`,
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
         ],
       )
@@ -260,7 +280,8 @@ export const handlers = [
           postId: 6,
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
           content: `single post`,
-          Images: [{link: faker.image.urlLoremFlickr()}]
+          Images: [{link: faker.image.urlLoremFlickr()}],
+          createdAt: new Date(),
         },
       )
     )
@@ -274,31 +295,36 @@ export const handlers = [
             postId: 1,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 2,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 3,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 4,
             User: {id: 'zerohch0', nickname: '조현영', image: '/5Udwvqim.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
           {
             postId: 5,
             User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
             content: faker.lorem.text(),
-            Images: [{link: faker.image.urlLoremFlickr()}]
+            Images: [{link: faker.image.urlLoremFlickr()}],
+            createdAt: new Date(),
           },
         ],
       )
@@ -313,7 +339,8 @@ export const handlers = [
           postId: Math.random(),
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
           content: `new comment added`,
-          Images: [{link: faker.image.urlLoremFlickr()}]
+          Images: [{link: faker.image.urlLoremFlickr()}],
+          createdAt: new Date(),
         },
       )
     )
@@ -326,7 +353,8 @@ export const handlers = [
           postId: 6,
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
           content: `single post`,
-          Images: [{link: faker.image.urlLoremFlickr()}]
+          Images: [{link: faker.image.urlLoremFlickr()}],
+          createdAt: new Date(),
         },
       )
     )

@@ -8,6 +8,14 @@ import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
 import {dehydrate, Hydrate} from "@tanstack/react-query";
 import {getUserPosts} from "@/app/(afterLogin)/[username]/_lib/getUserPosts";
 
+export async function generateMetadata({params}: Props) {
+  const user: User = await getUser(params.username);
+  return {
+    title: `${user.nickname} (${user.id}) / Z`,
+    description: `${user.nickname} (${user.id}) 프로필`,
+  }
+}
+
 type Props = {
   params: { username: string }
 };

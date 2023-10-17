@@ -8,6 +8,17 @@ import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
 import {dehydrate, Hydrate} from "@tanstack/react-query";
 import CommentForm from "@/app/(afterLogin)/[username]/status/[id]/_component/CommentForm";
 import Comments from "@/app/(afterLogin)/[username]/status/[id]/_component/Comments";
+import {User} from "@/model/User";
+import {getUser} from "@/app/(afterLogin)/[username]/_lib/getUser";
+
+export async function generateMetadata({params}: Props) {
+  const user: User = await getUser(params.username);
+  const post: IPost = await getSinglePost({id: params.username, postId: params.id});
+  return {
+    title: `Z에서 ${user.nickname} 님 : ${post.content}`,
+    description: post.content,
+  }
+}
 
 type Props = {
   params: { username: string, id: string }

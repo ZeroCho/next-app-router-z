@@ -29,6 +29,15 @@ npx create-next-app@latest
 - (afterLogin), (beforeLogin) 폴더는 실제로 경로에 반영되지는 않음
 - 하위 폴더들에 layout 적용 용도
 
+### layout에서 현재 라우트 확인하기
+```
+  const segment = useSelectedLayoutSegment();
+```
+- 바로 하위만 나옴(compose/tweet의 경우 compose만 나옴)
+- 모든 depth를 가져오고 싶다면 useSelectedLayoutSegments (['compose', 'tweet'])
+- layout의 state는 모든 페이지에 공유됨
+- 공유하기 싫다면 layout 대신 template.ts 쓰기
+
 ### parallel router, intercepting routes 적용
 [링크](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes)
 
@@ -66,7 +75,7 @@ NavIcons로 아이콘들 분리
 
 ## 서버 컴포넌트와 클라이언트 컴포넌트 같이 쓰기
 - Client Component에서 Server Component import하면 안 됨
-- props로 넘길 것
+- props(children이나 기타 props)로 넘길 것
 
 # 백엔드 개발자가 API를 아직 못 만들었다.
 ## MSW
@@ -89,6 +98,9 @@ middleware.ts로 페이지 접근 제어
 "use client" 아래에서만 사용 가능
 - client component에서는 async component 불가능
 - 도입 후 새로고침 한 번씩 해볼 것
+
+## Form
+server action이 안정화되면 해볼 것. 아직은 use client로 하는 게 편한 듯 하다.
 
 ## route.ts
 /src/app/api/revalidate/route.ts 생성

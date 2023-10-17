@@ -32,14 +32,28 @@
 .postUserSection {
     margin-right: 12px;
     width: 40px;
+    position: relative;
 }
 
 .postUserImage {
+    display: inline-block;
     width: 40px;
     height: 40px;
     border-radius: 20px;
 }
 
+.postShade {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.postShade:hover {
+    background-color: rgba(26, 26, 26, 0.15);
+}
 .postUserImage img {
     width: 40px;
     height: 40px;
@@ -48,6 +62,9 @@
 
 .postUserName {
     font-weight: bold;
+}
+.postUserNick, .postDate {
+    color: rgb(83, 100, 113);
 }
 
 .postImageSection {
@@ -58,6 +75,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+.postBody:hover a {
+    text-decoration: underline;
 }
 
 .postImageSection img {

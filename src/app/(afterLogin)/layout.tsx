@@ -1,7 +1,7 @@
 import style from "./layout.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import NavIcons from "@/app/(afterLogin)/_component/NavIcons";
+import NavMenu from "@/app/(afterLogin)/_component/NavMenu";
 import {NextPage} from "next";
 import FollowRecommend from "@/app/(afterLogin)/home/_component/FollowRecommend";
 import LogOutButton from "@/app/(afterLogin)/_component/LogOutButton";
@@ -79,34 +79,7 @@ const Layout: NextPage<Props> = async ({
             </Link>
             <nav>
               <ul>
-                <li>
-                  <Link href="/home">
-                    <div className={style.navPill}>
-                      <NavIcons type="/home"/>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/explore">
-                    <div className={style.navPill}>
-                      <NavIcons type="/explore"/>
-                    </div>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/messages">
-                    <div className={style.navPill}>
-                      <NavIcons type="/messages"/>
-                    </div>
-                  </Link>
-                </li>
-                {me?.id && <li>
-                  <Link href={`/${me?.id}`}>
-                    <div className={style.navPill}>
-                      <NavIcons type="/username"/>
-                    </div>
-                  </Link>
-                </li>}
+                <NavMenu />
                 <div>
                   <Link href="/compose/tweet" className={style.postButton}>게시하기</Link>
                 </div>
