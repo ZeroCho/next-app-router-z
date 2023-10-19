@@ -1,9 +1,9 @@
-import LoginComponent from '@/app/(beforeLogin)/i/flow/login/_component/Login';
+import LoginModal from '@/app/(beforeLogin)/_component/LoginModal';
 
 export default function Login() {
   return (
     <>
-      <LoginComponent />
+      <LoginModal />
     </>
     )
 }

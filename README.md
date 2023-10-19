@@ -4,6 +4,7 @@
 - 레이아웃 기능
 - 페이지별 권한 체크
 - 서버 컴포넌트 분리로 인한 최적화
+- 데이터 캐시
 
 # Getting Started
 Next.js, CSS Modules 사용

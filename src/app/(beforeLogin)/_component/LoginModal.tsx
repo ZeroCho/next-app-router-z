@@ -1,10 +1,10 @@
 "use client";
 
-import style from './login.module.css';
+import style from './loginModal.module.css';
 import {useRouter} from "next/navigation";
 import {ChangeEventHandler, FormEventHandler, useState} from "react";
 
-export default function Login() {
+export default function LoginModal() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');

@@ -4,7 +4,7 @@ import style from './signup.module.css';
 import {useRouter} from "next/navigation";
 import {ChangeEventHandler, FormEventHandler, useState} from "react";
 
-export default function Signup() {
+export default function SignupModal() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
