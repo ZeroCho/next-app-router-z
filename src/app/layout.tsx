@@ -2,6 +2,7 @@ import './globals.css'
 import {Inter} from 'next/font/google'
 import {NextPage} from "next";
 import {MSWComponent} from "@/app/_component/MSWComponent";
+import AuthSession from "@/app/_component/AuthSession";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -16,7 +17,9 @@ const RootLayout: NextPage<Props> = ({
     <html lang="en">
     <body className={inter.className}>
     <MSWComponent />
-    {children}
+    <AuthSession>
+      {children}
+    </AuthSession>
     </body>
     </html>
   )

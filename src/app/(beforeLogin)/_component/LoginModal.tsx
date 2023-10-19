@@ -3,6 +3,7 @@
 import style from './loginModal.module.css';
 import {useRouter} from "next/navigation";
 import {ChangeEventHandler, FormEventHandler, useState} from "react";
+import {signIn} from "next-auth/react";
 
 export default function LoginModal() {
   const [id, setId] = useState('');
@@ -21,28 +22,17 @@ export default function LoginModal() {
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     setMessage('');
-    fetch('http://localhost:9090/api/login', {
-      method: 'post',
-      body: JSON.stringify({
-        id,
-        password,
-      }),
-      credentials: 'include',
-    }).then((response: Response) => {
-      console.log(response.status);
-      return response.json();
+    signIn('credentials', {
+      username: id,
+      password,
+      redirect: false,
     })
-    .then((data) => {
-      if (data) {
-        console.log('to home');
-        router.replace('/home');
-      } else {
-        setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-      }
+    .then(() => {
+      router.replace('/home');
+    }).catch((error) => {
+      console.error(error);
+      setMessage('아이디와 비밀번호가 일치하지 않습니다.');
     })
-      .catch((err) => {
-      console.error(err);
-    });
   }
 
   return (

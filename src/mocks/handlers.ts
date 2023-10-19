@@ -15,6 +15,7 @@ export const handlers = [
         userId: 1,
         nickname: '제로초',
         id: 'zerocho',
+        image: '/5Udwvqim.jpg',
       })
     )
   }),

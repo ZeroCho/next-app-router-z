@@ -16,6 +16,7 @@
     "dayjs": "^1.11.10",
     "lodash.chunk": "^4.2.0",
     "next": "13.5.4",
+    "next-auth": "^4.24.3",
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.5.2",

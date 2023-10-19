@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import {getMyInfo} from "@/app/(afterLogin)/layout";
 import {useEffect} from "react";
 import {useUserStore} from "@/store/user";
+import {signOut} from "next-auth/react";
 
 export default function LogOutButton() {
   const router = useRouter();
@@ -21,17 +22,11 @@ export default function LogOutButton() {
   }, [me, add]);
 
   const onLogout = () => {
-    fetch('http://localhost:9090/api/logout', {
-      method: 'post',
-      credentials: 'include',
-    }).then((response: Response) => {
-      console.log(response.status);
-      if (response.status === 200) {
-        router.replace('/');
-      }
-    }).catch((err) => {
-      console.error(err);
-    });
+    signOut({ redirect: false }).then(() => {
+      router.replace('/')
+    }, (error) => {
+      console.error(error);
+    })
   }
 
   if (!me) {
