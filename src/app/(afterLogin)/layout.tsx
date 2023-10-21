@@ -14,7 +14,7 @@ import RQProvider from "./_component/RQProvider";
 
 export async function getMyInfo() {
   const res = await fetch('http://localhost:9090/api/user', {
-    next: { tags: ['myInfo'] },
+    next: {tags: ['myInfo']},
     credentials: 'include',
   });
   // The return value is *not* serialized
@@ -42,6 +42,7 @@ export async function getTrends() {
 
   return res.json()
 }
+
 async function getFollowRecommends() {
   const res = await fetch('http://localhost:9090/api/followRecommends');
   // The return value is *not* serialized
@@ -59,9 +60,10 @@ interface Props {
   children: React.ReactNode,
   modal: React.ReactNode,
 }
+
 const Layout: NextPage<Props> = async ({
-                                 children, modal
-                               }) => {
+                                         children, modal
+                                       }) => {
   const me = await getMyInfo();
   const trends: Hashtag[] = await getTrends();
   const followRecommends: User[] = await getFollowRecommends();
@@ -79,32 +81,32 @@ const Layout: NextPage<Props> = async ({
             </Link>
             <nav>
               <ul>
-                <NavMenu />
+                <NavMenu/>
                 <div>
                   <Link href="/compose/tweet" className={style.postButton}>게시하기</Link>
                 </div>
               </ul>
             </nav>
-            <LogOutButton />
+            <LogOutButton/>
           </div>
         </section>
       </header>
-      <div className={style.rightSectionWrapper}>
-        <div className={style.rightSectionInner}>
-          <RQProvider>
+      <RQProvider>
+        <div className={style.rightSectionWrapper}>
+          <div className={style.rightSectionInner}>
             {children}
-          </RQProvider>
-          <section className={style.rightSection}>
-            <RightSearchZone />
-            <TrendSection trends={trends} />
-            <div className={style.followRecommend}>
-              <h3>팔로우 추천</h3>
-              {followRecommends.map((v) => <FollowRecommend key={Math.random()} user={v} />)}
-            </div>
-          </section>
+            <section className={style.rightSection}>
+              <RightSearchZone/>
+              <TrendSection trends={trends}/>
+              <div className={style.followRecommend}>
+                <h3>팔로우 추천</h3>
+                {followRecommends.map((v) => <FollowRecommend key={Math.random()} user={v}/>)}
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-      {modal}
+        {modal}
+      </RQProvider>
     </div>
   )
 }

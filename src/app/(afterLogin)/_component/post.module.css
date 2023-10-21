@@ -63,12 +63,13 @@
 .postUserName {
     font-weight: bold;
 }
+.postUserId {}
 .postUserNick, .postDate {
     color: rgb(83, 100, 113);
 }
 
-.postImageSection {
-
+.postImageSection a {
+    display: inline-block;
 }
 
 .postBody {
@@ -76,10 +77,17 @@
     flex-direction: column;
     width: 100%;
 }
-.postBody:hover a {
+.postUserName:hover {
     text-decoration: underline;
 }
 
+.postMeta {
+    display: flex;
+    flex-direction: row;
+}
+.postDate:hover {
+    text-decoration: underline;
+}
 .postImageSection img {
     margin-top: 12px;
     width: 100%;
@@ -123,6 +131,10 @@
 .actionButtons .count {
     font-size: 13px;
     color: rgb(83, 100, 113);
+}
+
+.commentButton.white svg, .repostButton.white svg, .heartButton.white svg {
+    fill: white;
 }
 
 .commentButton button {

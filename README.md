@@ -61,6 +61,10 @@ compose/tweet도 이걸로 처리
 ### home/@modal/(..)compose/tweet은 안 되나요?
 - home 폴더 안에 @modal은 app/(afterLogin)/layout.tsx에서 인식되지 않아서 사용 불가
 
+### 여전히 잇는 이슈
+[링크](https://github.com/vercel/next.js/issues/49614)
+[링크](https://github.com/vercel/next.js/issues/52533)
+
 ## 서버 컴포넌트와 클라이언트 컴포넌트 구분하기
 ### use client vs use server
 다음 에러가 나는 부분은 분리하자(Client Component로 분리 후 import하면 됨)

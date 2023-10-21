@@ -10,8 +10,9 @@ import {useUserStore} from "@/store/user";
 
 type Props = {
   post: Post;
+  white?: boolean
 }
-export default function ActionButtons({post}: Props) {
+export default function ActionButtons({post, white}: Props) {
   const queryClient = useQueryClient()
   const repostId = useRef<number | null>(post.postId ?? null);
   const add = usePostStore(store => store.add);
@@ -88,7 +89,7 @@ export default function ActionButtons({post}: Props) {
 
   return (
     <div className={style.actionButtons}>
-      <div className={cx(style.commentButton, commented && style.commented)}>
+      <div className={cx(style.commentButton, commented && style.commented, white && style.white)}>
         <button onClick={onClickComment}>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -99,7 +100,7 @@ export default function ActionButtons({post}: Props) {
         </button>
         <div className={style.count}>{commentCount || ''}</div>
       </div>
-      <div className={cx(style.repostButton, reposted && style.reposted)}>
+      <div className={cx(style.repostButton, reposted && style.reposted, white && style.white)}>
         <button onClick={onClickRepost}>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
@@ -110,7 +111,7 @@ export default function ActionButtons({post}: Props) {
         </button>
         <div className={style.count}>{repostCount || ''}</div>
       </div>
-      <div className={cx([style.heartButton, liked && style.liked])}>
+      <div className={cx([style.heartButton, liked && style.liked, white && style.white])}>
         <button onClick={onClickHeart}>
           <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
             <g>
