@@ -1,8 +1,8 @@
-import style from './beforeLogin.module.css';
+import style from './main.module.css';
 import Link from "next/link";
 import Image from "next/image";
 
-export default function BeforeLogin() {
+export default function Main() {
   return (
     <div className={style.container}>
       <div className={style.left}>

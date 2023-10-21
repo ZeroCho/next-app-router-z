@@ -1,6 +1,6 @@
 "use client";
 
-import style from "@/app/(afterLogin)/home/home.module.css";
+import style from "./tab.module.css";
 import React, {useContext, useState} from "react";
 import {useRouter} from "next/navigation";
 import {TabContext} from "@/app/(afterLogin)/home/_component/TabProvider";

@@ -1,6 +1,6 @@
 import React from "react";
 import type {Metadata, NextPage} from "next";
-import BeforeLogin from "@/app/(beforeLogin)/_component/BeforeLogin";
+import Main from "@/app/(beforeLogin)/_component/Main";
 import {redirect} from "next/navigation";
 import {getMyInfo} from "@/app/(afterLogin)/layout";
 
@@ -24,6 +24,6 @@ const Home: NextPage = async () => {
   if (me) {
     redirect('/home');
   }
-  return <BeforeLogin />
+  return <Main />
 }
 export default Home;
