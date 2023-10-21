@@ -5,7 +5,7 @@ import PostForm from "@/app/(afterLogin)/home/_component/PostForm";
 import Tab from "@/app/(afterLogin)/home/_component/Tab";
 import TabProvider from "@/app/(afterLogin)/home/_component/TabProvider";
 import TabDecider from "@/app/(afterLogin)/home/_component/TabDecider";
-import {dehydrate, Hydrate} from "@tanstack/react-query";
+import {dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
 import PostRecommends from "@/app/(afterLogin)/home/_component/PostRecommends";
 import FollowingPosts from "@/app/(afterLogin)/home/_component/FollowingPosts";
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
 
 const Home: NextPage = async () => {
   const queryClient = getQueryClient()
-  await queryClient.prefetchInfiniteQuery(['posts', "infinite", 'recommends'], getPostRecommends)
-  await queryClient.prefetchInfiniteQuery(['posts', "infinite", 'followings'], getFollowingPosts)
+  await queryClient.prefetchInfiniteQuery({ queryKey: ['posts', "infinite", 'recommends'], queryFn: getPostRecommends, initialPageParam: 0 })
+  await queryClient.prefetchInfiniteQuery({ queryKey: ['posts', "infinite", 'followings'], queryFn: getFollowingPosts, initialPageParam: 0 })
   const dehydratedState = dehydrate(queryClient)
 
   return (
     <main className={style.main}>
-      <Hydrate state={dehydratedState}>
+      <HydrationBoundary  state={dehydratedState}>
         <TabProvider>
           <Tab/>
           <PostForm/>
@@ -36,7 +36,7 @@ const Home: NextPage = async () => {
             />
           </div>
         </TabProvider>
-      </Hydrate>
+      </HydrationBoundary>
     </main>
   );
 }

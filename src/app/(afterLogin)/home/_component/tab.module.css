@@ -1,6 +1,6 @@
-
 .homeFixed {
     position: fixed;
+    z-index: 1;
     width: 598px;
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);

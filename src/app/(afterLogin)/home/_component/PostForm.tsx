@@ -6,6 +6,7 @@ import {useUserStore} from "@/store/user";
 import {getMyInfo} from "@/app/(afterLogin)/layout";
 import {Post} from "@/model/Post";
 import {usePostStore} from "@/store/post";
+import {useSession} from "next-auth/react";
 
 export default function PostForm() {
   const me = useUserStore(store => store.me);
@@ -13,15 +14,20 @@ export default function PostForm() {
   const imageRef = useRef<HTMLInputElement>(null);
   const addPost = usePostStore(store => store.add);
   const [content, setContent] = useState('');
+  const { data: session, status } = useSession()
 
   useEffect(() => {
-    if (!me) {
-      getMyInfo()
-        .then((data) => {
-          add(data);
-        })
+    if (!me && session?.user) {
+      const { email, name, image } = session.user;
+      if (email && name && image) {
+        add({
+          id: email,
+          nickname: name,
+          image: image,
+        });
+      }
     }
-  }, [me, add]);
+  }, [me, add, session]);
 
   const onClickButton = () => {
     imageRef.current?.click();

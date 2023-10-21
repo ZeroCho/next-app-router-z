@@ -7,6 +7,7 @@ import {getMyInfo} from "@/app/(afterLogin)/layout";
 import {Post} from "@/model/Post";
 import {useParams} from "next/navigation";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useSession} from "next-auth/react";
 
 type Props = {
   id: string;
@@ -19,15 +20,20 @@ export default function CommentForm({id, postId}: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState('');
   const queryClient = useQueryClient()
+  const { data: session, status } = useSession()
 
   useEffect(() => {
-    if (!me) {
-      getMyInfo()
-        .then((data) => {
-          add(data);
-        })
+    if (!me && session?.user) {
+      const { email, name, image } = session.user;
+      if (email && name && image) {
+        add({
+          id: email,
+          nickname: name,
+          image: image,
+        });
+      }
     }
-  }, [me, add]);
+  }, [me, add, session]);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setContent(e.target.value);

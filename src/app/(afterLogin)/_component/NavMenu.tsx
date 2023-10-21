@@ -6,23 +6,27 @@ import React, {useEffect} from "react";
 import {useUserStore} from "@/store/user";
 import Link from "next/link";
 import style from "@/app/(afterLogin)/layout.module.css";
+import {useSession} from "next-auth/react";
 
 export default function NavMenu() {
   const me = useUserStore(store => store.me);
   const add = useUserStore(store => store.add);
   const segment = useSelectedLayoutSegment();
-  console.log('segment', segment);
+  const { data: session, status } = useSession()
 
   useEffect(() => {
-    if (!me) {
-      getMyInfo()
-        .then((data) => {
-          add(data);
-        })
+    if (!me && session?.user) {
+      const { email, name, image } = session.user;
+      if (email && name && image) {
+        add({
+          id: email,
+          nickname: name,
+          image: image,
+        });
+      }
     }
-  }, [me, add]);
+  }, [me, add, session]);
 
-  const currentRoute = usePathname();
   return (
     <>
       <li>

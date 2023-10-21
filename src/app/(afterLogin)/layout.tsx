@@ -11,6 +11,8 @@ import RightSearchZone from "@/app/(afterLogin)/_component/RightSearchZone";
 import React from "react";
 import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
 import RQProvider from "./_component/RQProvider";
+import {getFollowRecommends} from "@/app/(afterLogin)/_lib/getFollowRecommends";
+import {getTrends} from "@/app/(afterLogin)/_lib/getTrends";
 
 export async function getMyInfo() {
   const res = await fetch('http://localhost:9090/api/user', {
@@ -28,34 +30,6 @@ export async function getMyInfo() {
   return res.json();
 }
 
-export async function getTrends() {
-  const res = await fetch('http://localhost:9090/api/trends', {
-    cache: 'no-store',
-  });
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json()
-}
-
-async function getFollowRecommends() {
-  const res = await fetch('http://localhost:9090/api/followRecommends');
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json()
-}
-
 interface Props {
   children: React.ReactNode,
   modal: React.ReactNode,
@@ -64,10 +38,8 @@ interface Props {
 const Layout: NextPage<Props> = async ({
                                          children, modal
                                        }) => {
-  const me = await getMyInfo();
   const trends: Hashtag[] = await getTrends();
   const followRecommends: User[] = await getFollowRecommends();
-
 
   return (
     <div className={style.container}>

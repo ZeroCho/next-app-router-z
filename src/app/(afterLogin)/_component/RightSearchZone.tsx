@@ -3,6 +3,7 @@
 import style from './rightSearchZone.module.css'
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {Route} from "next";
 
 export default function RightSearchZone() {
   const pathname = usePathname()
@@ -15,12 +16,12 @@ export default function RightSearchZone() {
     if (searchParams.has('f')) {
       url += `&f=${searchParams.get('f')}`
     }
-    router.replace(url);
+    router.replace(url as Route);
   };
 
   const onChangeFollow = () => {
     let url = `/search?${searchParams.toString()}&pf=on`;
-    router.replace(url);
+    router.replace(url as Route);
   };
 
   if (pathname === '/explore') {

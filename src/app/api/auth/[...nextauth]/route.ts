@@ -39,7 +39,12 @@ const handler = NextAuth({
           })
           .then((data) => {
             if (data) {
-              return data;
+              return {
+                name: data.nickname,
+                email: data.id,
+                image: data.image,
+                ...data,
+              };
             }
             return null;
           })

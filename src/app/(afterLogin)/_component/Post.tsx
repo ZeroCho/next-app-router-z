@@ -35,8 +35,8 @@ const Post = ({post}: Props) => {
         <div className={style.postUserSection}>
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
             <img src={target.User.image} alt={target.User.nickname}/>
+            <div className={style.postShade}/>
           </Link>
-          <div className={style.postShade}/>
         </div>
         <div className={style.postBody}>
           <div className={style.postMeta}>

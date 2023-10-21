@@ -6,7 +6,7 @@ import BackButton from "@/app/(afterLogin)/search/_component/BackButton";
 import {redirect} from "next/navigation";
 import Tab from "@/app/(afterLogin)/search/_component/Tab";
 import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
-import {dehydrate, Hydrate} from "@tanstack/react-query";
+import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {getSearchResult} from "@/app/(afterLogin)/search/_lib/getSearchResult";
 import SearchResult from "@/app/(afterLogin)/search/_component/SearchResult";
 
@@ -24,7 +24,7 @@ export async function generateMetadata({params, searchParams}: Props): Promise<M
 
 export default async function Search({searchParams}: Props) {
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['searchResults', searchParams], getSearchResult);
+  await queryClient.prefetchQuery({ queryKey: ['searchResults', searchParams], queryFn: getSearchResult });
   const dehydratedState = dehydrate(queryClient)
 
   if (!searchParams.q) {
@@ -33,7 +33,7 @@ export default async function Search({searchParams}: Props) {
 
   return (
     <main className={style.main}>
-      <Hydrate state={dehydratedState}>
+      <HydrationBoundary state={dehydratedState}>
         <div className={style.searchTop}>
           <div className={style.searchZone}>
             <div className={style.buttonZone}>
@@ -48,7 +48,7 @@ export default async function Search({searchParams}: Props) {
         <div className={style.list}>
           <SearchResult searchParams={searchParams} />
         </div>
-      </Hydrate>
+      </HydrationBoundary>
     </main>
   )
 }

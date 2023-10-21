@@ -2,9 +2,9 @@ import {Metadata} from "next";
 import style from "./explore.module.css";
 import Trend from "@/app/(afterLogin)/home/_component/Trend";
 import {Hashtag} from "@/model/Hashtag";
-import {getTrends} from "@/app/(afterLogin)/layout";
 import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import React from "react";
+import {getTrends} from "@/app/(afterLogin)/_lib/getTrends";
 
 export const metadata: Metadata = {
   title: '탐색하기 / Z',

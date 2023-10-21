@@ -5,7 +5,7 @@ import {User} from "@/model/User";
 import {getUser} from "@/app/(afterLogin)/[username]/_lib/getUser";
 import UserPosts from "@/app/(afterLogin)/[username]/_component/UserPosts";
 import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
-import {dehydrate, Hydrate} from "@tanstack/react-query";
+import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {getUserPosts} from "@/app/(afterLogin)/[username]/_lib/getUserPosts";
 
 export async function generateMetadata({params}: Props) {
@@ -23,7 +23,7 @@ type Props = {
 export default async function Page({params}: Props) {
   const user: User = await getUser(params.username);
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['posts', 'users', {id: params.username}], getUserPosts);
+  await queryClient.prefetchQuery({ queryKey: ['posts', 'users', {id: params.username}], queryFn: getUserPosts });
   const dehydratedState = dehydrate(queryClient)
 
   return (
@@ -42,9 +42,9 @@ export default async function Page({params}: Props) {
         </div>
         <button className={style.followButton}>팔로우</button>
       </div>
-      <Hydrate state={dehydratedState}>
+      <HydrationBoundary state={dehydratedState}>
         <UserPosts id={params.username}/>
-      </Hydrate>
+      </HydrationBoundary>
     </div>
   );
 }

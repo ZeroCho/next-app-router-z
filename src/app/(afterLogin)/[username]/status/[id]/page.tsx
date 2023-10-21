@@ -5,7 +5,7 @@ import React from "react";
 import style from './singlePost.module.css';
 import {getComments} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getComments";
 import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
-import {dehydrate, Hydrate} from "@tanstack/react-query";
+import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import CommentForm from "@/app/(afterLogin)/[username]/status/[id]/_component/CommentForm";
 import Comments from "@/app/(afterLogin)/[username]/status/[id]/_component/Comments";
 import {User} from "@/model/User";
@@ -40,7 +40,7 @@ async function getSinglePost({id, postId}: { id: string, postId: string }) {
 export default async function Page({params}: Props) {
   const post: IPost = await getSinglePost({id: params.username, postId: params.id});
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['posts', 'comments', {id: params.username, postId: params.id}], getComments);
+  await queryClient.prefetchQuery({ queryKey: ['posts', 'comments', {id: params.username, postId: params.id}], queryFn: getComments });
   const dehydratedState = dehydrate(queryClient)
 
   return <div className={style.main}>
@@ -50,8 +50,8 @@ export default async function Page({params}: Props) {
     </div>
     <Post post={post}/>
     <CommentForm id={params.username} postId={params.id}/>
-    <Hydrate state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       <Comments id={params.username} postId={params.id}/>
-    </Hydrate>
+    </HydrationBoundary>
   </div>
 }

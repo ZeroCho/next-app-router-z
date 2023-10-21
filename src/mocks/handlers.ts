@@ -286,9 +286,9 @@ export const handlers = [
     return res(
       ctx.json(
         {
-          postId: 6,
+          postId: req.params.postId,
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-          content: `single post`,
+          content: `single post ${req.params.postId}`,
           Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
           createdAt: generateDate(),
         },
@@ -384,9 +384,9 @@ export const handlers = [
     return res(
       ctx.json(
         {
-          postId: 6,
+          postId: req.params.id,
           User: {id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg'},
-          content: `single post`,
+          content: `single post ${req.params.id}`,
           Images: [{imageId: 1, link: faker.image.urlLoremFlickr()}],
           createdAt: generateDate(),
         },

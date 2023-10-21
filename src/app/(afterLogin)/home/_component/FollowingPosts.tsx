@@ -2,8 +2,8 @@
 
 import React, {Fragment, useEffect} from "react";
 import Post from "@/app/(afterLogin)/_component/Post";
-import {useInfiniteQuery} from "@tanstack/react-query";
-import { Post as IPost } from '@/model/Post';
+import {DefaultError, InfiniteData, useInfiniteQuery} from "@tanstack/react-query";
+import {Post as IPost} from '@/model/Post';
 import {getFollowingPosts} from "@/app/(afterLogin)/home/_lib/getFollowingPosts";
 import {useInView} from "react-intersection-observer";
 
@@ -13,12 +13,13 @@ export default function FollowingPosts() {
     fetchNextPage,
     hasNextPage,
     isFetching,
-  } = useInfiniteQuery<IPost[]>({
+  } = useInfiniteQuery<IPost[], DefaultError, InfiniteData<IPost[]>, string[], number>({
     queryKey: ['posts', "infinite", "followings"],
     queryFn: getFollowingPosts,
+    initialPageParam: 0,
     getNextPageParam: (lastPage, pages) => lastPage.at(-1)?.postId
   });
-  const { ref, inView, entry } = useInView({
+  const {ref, inView, entry} = useInView({
     /* Optional options */
     threshold: 0,
   });
@@ -36,7 +37,7 @@ export default function FollowingPosts() {
           {group.map((v) => <Post key={v.postId} post={v}/>)}
         </Fragment>
       ))}
-      <div ref={ref} style={{ height: 50 }} />
+      <div ref={ref} style={{height: 50}}/>
     </>
   );
 }

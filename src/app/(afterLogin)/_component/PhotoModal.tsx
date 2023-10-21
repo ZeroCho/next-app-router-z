@@ -2,7 +2,7 @@ import style from './photoModal.module.css';
 import {getPhoto} from "@/app/(afterLogin)/_lib/getPhoto";
 import {getComments} from "@/app/(afterLogin)/[username]/status/[id]/_lib/getComments";
 import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
-import {dehydrate, Hydrate} from "@tanstack/react-query";
+import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import Post from "@/app/(afterLogin)/_component/Post";
 import React from "react";
 import {PostImage} from "@/model/PostImage";
@@ -17,11 +17,11 @@ type Props = {
 export default async function PhotoModal({params}: Props) {
   const photo: PostImage = await getPhoto(params);
   const queryClient = getQueryClient()
-  await queryClient.prefetchQuery(['posts', 'comments', {id: params.username, postId: params.id}], getComments);
+  await queryClient.prefetchQuery({ queryKey: ['posts', 'comments', {id: params.username, postId: params.id}], queryFn: getComments });
   const dehydratedState = dehydrate(queryClient)
 
   return (
-    <Hydrate state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       <div className={style.container}>
         <PhotoModalCloseButton />
         <div className={style.imageZone}>
@@ -39,6 +39,6 @@ export default async function PhotoModal({params}: Props) {
           <Comments id={params.username} postId={params.id}/>
         </div>
       </div>
-    </Hydrate>
+    </HydrationBoundary>
   )
 }
