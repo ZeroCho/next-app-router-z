@@ -3,7 +3,6 @@
 import style from "./postForm.module.css";
 import React, {ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useRef, useState} from "react";
 import {useUserStore} from "@/store/user";
-import {getMyInfo} from "@/app/(afterLogin)/layout";
 import {Post} from "@/model/Post";
 import {usePostStore} from "@/store/post";
 import {useSession} from "next-auth/react";
@@ -33,7 +32,7 @@ export default function PostForm() {
     imageRef.current?.click();
   }
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
   }
 
@@ -77,7 +76,7 @@ export default function PostForm() {
         </div>
       </div>
       <div className={style.postInputSection}>
-        <input type="text" value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?"/>
+        <textarea value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?"/>
         <div className={style.postButtonSection}>
           <div className={style.footerButtons}>
             <div className={style.footerButtonLeft}>

@@ -35,7 +35,7 @@ export default function CommentForm({id, postId}: Props) {
     }
   }, [me, add, session]);
 
-  const onChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
   }
 
@@ -83,7 +83,7 @@ export default function CommentForm({id, postId}: Props) {
         </div>
       </div>
       <div className={style.postInputSection}>
-        <input type="text" value={content} onChange={onChange} placeholder="답글 게시하기"/>
+        <textarea value={content} onChange={onChange} placeholder="답글 게시하기"/>
         <div className={style.postButtonSection}>
           <div className={style.footerButtons}>
             <div className={style.footerButtonLeft}>

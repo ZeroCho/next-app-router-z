@@ -30,7 +30,7 @@
 .postButtonSection {
     width: 100%;
 }
-.postForm input {
+.postForm textarea {
     width: 100%;
     border: none;
     padding: 12px 0;
