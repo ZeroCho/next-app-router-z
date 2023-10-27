@@ -3,6 +3,7 @@
 import style from "@/app/(afterLogin)/search/search.module.css";
 import React, {useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
+import {Route} from "next";
 
 export default function Tab() {
   const [current, setCurrent] = useState('hot');
@@ -14,7 +15,7 @@ export default function Tab() {
       url += `&pf=${searchParams.get('pf')}`
     }
     setCurrent('hot');
-    router.replace(url)
+    router.replace(url as Route)
   }
   const onClickNew = () => {
     setCurrent('new');

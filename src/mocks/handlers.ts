@@ -12,6 +12,7 @@ function generateDate() {
 export const handlers = [
   // Handles a POST /login request
   rest.post('/api/login', (req, res, ctx) => {
+    console.log('login');
     return res(
       // Calling `ctx.cookie()` sets given cookies
       // on `document.cookie` directly.
@@ -28,6 +29,7 @@ export const handlers = [
     )
   }),
   rest.post('/api/logout', (req, res, ctx) => {
+    console.log('logout');
     return res(
       // Calling `ctx.cookie()` sets given cookies
       // on `document.cookie` directly.

@@ -27,7 +27,8 @@ export default function LoginModal() {
       password,
       redirect: false,
     })
-    .then(() => {
+    .then((result) => {
+      console.log('result', result);
       router.replace('/home');
     }).catch((error) => {
       console.error(error);

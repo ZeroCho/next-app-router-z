@@ -49,6 +49,18 @@ i/flow/signup과 i/flow/login은 이걸로 처리
 - (beforeLogin)과 동등 레벨에 만드는 경우 The default export is not a React Component in page 에러 발생
 - /login에서 /i/flow/login으로 가기 위해서는 redirect로는 안 되고, router.replace를 해야 함. "use client" 사용 필요.
 
+## 서버 컴포넌트와 클라이언트 컴포넌트 구분하기
+### use client vs use server
+다음 에러가 나는 부분은 분리하자(Client Component로 분리 후 import하면 됨)
+```
+Error: usePathname only works in Client Components. Add the "use client" directive at the top of the file to use it. Read more: https://nextjs.org/docs/messages/react-client-hook-in-server-component   
+at RootLayout (./src/app/layout.tsx:29:86)
+at stringify (<anonymous>)
+```
+- NavIcons로 아이콘들 분리
+- _components 폴더에 주로 Client Component 생성
+- useState, useRef, useEffect, useContext, useRouter, useSearchParams, onClick 등등 많다
+
 ### compose/tweet 처리
 compose/tweet도 이걸로 처리
 - @modal/compose/tweet으로 바꾸고 parallel router 적용
@@ -65,25 +77,19 @@ compose/tweet도 이걸로 처리
 [링크](https://github.com/vercel/next.js/issues/49614)
 [링크](https://github.com/vercel/next.js/issues/52533)
 
-## 서버 컴포넌트와 클라이언트 컴포넌트 구분하기
-### use client vs use server
-다음 에러가 나는 부분은 분리하자(Client Component로 분리 후 import하면 됨)
+## faker.js
+- faker.js는 더미데이터 생성용
+- npm i faker하지 않도록 주의
 ```
-Error: usePathname only works in Client Components. Add the "use client" directive at the top of the file to use it. Read more: https://nextjs.org/docs/messages/react-client-hook-in-server-component   
-at RootLayout (./src/app/layout.tsx:29:86)
-at stringify (<anonymous>)
+npm i -D @faker-js/faker
 ```
-NavIcons로 아이콘들 분리
-
-- _components 폴더에 주로 Client Component 생성
-- useState, useRef, useEffect, useContext, useRouter, useSearchParams, onClick 등등 많다
 
 ## 서버 컴포넌트와 클라이언트 컴포넌트 같이 쓰기
 - Client Component에서 Server Component import하면 안 됨
 - props(children이나 기타 props)로 넘길 것
 
 # 백엔드 개발자가 API를 아직 못 만들었다.
-## MSW
+## MSW@2
 ```
 npm install msw @faker-js/faker -D
 npx msw init public/ --save
@@ -91,7 +97,10 @@ npx msw init public/ --save
 [해당 이슈로 msw 서버에서 사용 불가](https://github.com/mswjs/msw/issues/1644)
 - 위 이슈 해결되기 전까지는 http 서버 직접 생성
 
-- faker.js는 더미데이터 생성용
+## next-auth@5
+```
+npm install next-auth@5 @auth/core
+```
 
 ## 페이지 접근 권한
 middleware.ts로 페이지 접근 제어

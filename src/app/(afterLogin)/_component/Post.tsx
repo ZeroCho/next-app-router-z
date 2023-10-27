@@ -6,6 +6,7 @@ import PostArticle from "@/app/(afterLogin)/_component/PostArticle";
 import dayjs from "dayjs";
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import PostImages from "@/app/(afterLogin)/_component/PostImages";
 
 dayjs.locale('ko');
 dayjs.extend(relativeTime)
@@ -51,15 +52,8 @@ const Post = ({post}: Props) => {
             <span className={style.postDate}>{dayjs(target.createdAt).fromNow(true)}</span>
           </div>
           <div>{target.content}</div>
-          <div className={style.postImageSection}>
-            {target.Images && target.Images.length > 0 && (
-              <Link
-                href={`/${target.User.id}/status/${target.postId}/photo/${target.Images[0].imageId}`}
-                className={style.postImageSection}
-              >
-                <img src={target.Images[0]?.link} alt=""/>
-              </Link>
-            )}
+          <div>
+            <PostImages post={post} />
           </div>
           <ActionButtons post={post}/>
         </div>
