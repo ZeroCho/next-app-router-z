@@ -97,10 +97,18 @@ npx msw init public/ --save
 [해당 이슈로 msw 서버에서 사용 불가](https://github.com/mswjs/msw/issues/1644)
 - 위 이슈 해결되기 전까지는 http 서버 직접 생성
 
+## Server Actions
+- 회원가입에 적용하기(Next 14부터 가능)
+- 클라이언트 컴포넌트에서도 사용 가능
+- useFormState와 useFormStatus 적용하기
+
 ## next-auth@5
 ```
 npm install next-auth@5 @auth/core
 ```
+- auth.ts, middleware.ts, app/api/auth/[...nextauth]/route.ts 생성 
+- 로그인을 위해 signIn("credentials") 호출(csrf 토큰 알아서 관리)
+- 로그아웃을 위해 signOut 호출
 
 ## 페이지 접근 권한
 middleware.ts로 페이지 접근 제어

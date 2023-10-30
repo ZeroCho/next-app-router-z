@@ -13,6 +13,7 @@ import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
 import RQProvider from "./_component/RQProvider";
 import {getFollowRecommends} from "@/app/(afterLogin)/_lib/getFollowRecommends";
 import {getTrends} from "@/app/(afterLogin)/_lib/getTrends";
+import {auth} from "@/auth";
 
 export async function getMyInfo() {
   const res = await fetch('http://localhost:9090/api/user', {
@@ -40,6 +41,7 @@ const Layout: NextPage<Props> = async ({
                                        }) => {
   const trends: Hashtag[] = await getTrends();
   const followRecommends: User[] = await getFollowRecommends();
+  const session = await auth();
 
   return (
     <div className={style.container}>

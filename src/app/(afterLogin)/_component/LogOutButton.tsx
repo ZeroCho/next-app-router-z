@@ -2,7 +2,6 @@
 
 import style from "@/app/(afterLogin)/layout.module.css";
 import {useRouter} from "next/navigation";
-import {getMyInfo} from "@/app/(afterLogin)/layout";
 import {useEffect} from "react";
 import {useUserStore} from "@/store/user";
 import {signOut, useSession} from "next-auth/react";
