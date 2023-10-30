@@ -39,7 +39,16 @@ export const handlers = [
       }),
     )
   }),
-
+  rest.post('/api/users', (req, res, ctx) => {
+    console.log('회원가입');
+    return res(
+      ctx.text('ok'),
+      ctx.cookie('connect.sid', 'msw-cookie', {
+        httpOnly: true,
+        path: '/'
+      }),
+    )
+  }),
   rest.post('/api/users/:id/follow', (req, res, ctx) => {
     return res(
       ctx.status(200),
