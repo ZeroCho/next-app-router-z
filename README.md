@@ -99,6 +99,7 @@ npx msw init public/ --save
 
 ## Server Actions
 - 회원가입에 적용하기(Next 14부터 가능)
+- **redirect는 try/catch문 안에서 쓰면 안됨!!!**
 - 클라이언트 컴포넌트에서도 사용 가능
 - useFormState와 useFormStatus 적용하기
 

@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const {
   handlers: { GET, POST },
   auth,
+  signIn,
 } = NextAuth({
   pages: {
     signIn: '/i/flow/login',
@@ -23,6 +24,7 @@ export const {
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
+        console.log('authorize');
         if (!credentials) return null;
         return fetch(`${process.env.AUTH_URL}/api/login`, {
           method: 'post',

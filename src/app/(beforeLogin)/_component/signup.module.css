@@ -107,3 +107,7 @@
 .closeButton:hover {
     background-color: rgba(15,20,25, 0.1);
 }
+
+.error {
+    color: red;
+}

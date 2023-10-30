@@ -1,33 +1,14 @@
+'use client'
+
 import style from './signup.module.css';
 import BackButton from './BackButton';
-import {redirect} from "next/navigation";
-import {signIn} from "next-auth/react";
-export default function SignupModal() {
+import onSubmit from '../_lib/signup';
+import {useState} from "react";
+import {useFormState, useFormStatus } from 'react-dom';
 
-  const onSubmit = async (formData: FormData) => {
-    'use server';
-    let shouldRedirect = false;
-    try {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
-          method: 'post',
-          body: formData,
-          credentials: 'include',
-        });
-        console.log(response.status);
-        if (response.status === 200) {
-          shouldRedirect = true;
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-    if (shouldRedirect) {
-      await redirect(`/home`);
-    }
-  }
+export default function SignupModal() {
+  const { pending } = useFormStatus()
+  const [state, formAction] = useFormState(onSubmit, { message: null })
 
   return (
     <>
@@ -37,7 +18,7 @@ export default function SignupModal() {
             <BackButton />
             <div>계정을 생성하세요.</div>
           </div>
-          <form action={onSubmit}>
+          <form action={formAction}>
             <div className={style.modalBody}>
               <div className={style.inputDiv}>
                 <label className={style.inputLabel} htmlFor="id">아이디</label>
@@ -61,7 +42,8 @@ export default function SignupModal() {
               </div>
             </div>
             <div className={style.modalFooter}>
-              <button className={style.actionButton}>가입하기</button>
+              <button className={style.actionButton} disabled={pending}>가입하기</button>
+              <div className={style.error}>{state?.message}</div>
             </div>
           </form>
         </div>
