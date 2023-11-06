@@ -1,36 +1,14 @@
-"use client";
+"use client"
 
-import style from "./postForm.module.css";
-import React, {ChangeEventHandler, FormEventHandler, MouseEventHandler, useEffect, useRef, useState} from "react";
-import {useUserStore} from "@/store/user";
-import {Post} from "@/model/Post";
-import {usePostStore} from "@/store/post";
+import {ChangeEventHandler, FormEventHandler, useRef, useState} from "react";
+import style from './postForm.module.css';
 import {useSession} from "next-auth/react";
 
 export default function PostForm() {
-  const me = useUserStore(store => store.me);
-  const add = useUserStore(store => store.add);
   const imageRef = useRef<HTMLInputElement>(null);
-  const addPost = usePostStore(store => store.add);
   const [content, setContent] = useState('');
-  const { data: session, status } = useSession()
+  const { data: me } = useSession();
 
-  useEffect(() => {
-    if (!me && session?.user) {
-      const { email, name, image } = session.user;
-      if (email && name && image) {
-        add({
-          id: email,
-          nickname: name,
-          image: image,
-        });
-      }
-    }
-  }, [me, add, session]);
-
-  const onClickButton = () => {
-    imageRef.current?.click();
-  }
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
@@ -38,41 +16,17 @@ export default function PostForm() {
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    fetch('http://localhost:9090/api/posts', {
-      method: 'post',
-      body: JSON.stringify({
-        content
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    }).then((response: Response) => {
-      console.log(response.status);
-      if (response.status === 201) {
-        return response.json();
-      }
-    })
-      .then((data: Post) => {
-        if (data) {
-          addPost(data);
-          setContent('');
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
   }
 
-  if (!me) {
-    return null;
+  const onClickButton = () => {
+    imageRef.current?.click();
   }
 
   return (
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={me.image} alt={me.id} />
+          <img src={me?.user?.image as string} alt={me?.user?.email as string} />
         </div>
       </div>
       <div className={style.postInputSection}>

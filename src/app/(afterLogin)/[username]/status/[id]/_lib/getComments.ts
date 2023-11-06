@@ -1,11 +1,17 @@
 import {QueryFunction} from "@tanstack/query-core";
-import {Post as IPost} from '@/model/Post';
-const getComments: QueryFunction<IPost[], [_key: string, _key2: string, { id: string, postId: string }]>
-  = async ({queryKey}) => {
-  const [_key, _key2, { id, postId }] = queryKey;
-  const res = await fetch(`http://localhost:9090/api/users/${id}/posts/${postId}/comments`, {
-    cache: 'no-store', // 캐싱 안 함
+import {Post} from "@/model/Post";
+
+export const getComments: QueryFunction<Post[], [_1: string, _2: string, _3: string]>
+  = async ({ queryKey }) => {
+  const [_1, id] = queryKey;
+  const res = await fetch(`http://localhost:9090/api/posts/${id}/comments`, {
+    next: {
+      tags: ['posts', id, 'comments'],
+    },
+    cache: 'no-store',
   });
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -14,4 +20,3 @@ const getComments: QueryFunction<IPost[], [_key: string, _key2: string, { id: st
 
   return res.json()
 }
-export { getComments };

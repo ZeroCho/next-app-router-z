@@ -1,43 +1,19 @@
-"use client";
+"use client"
 
-import React, {Fragment, useEffect} from "react";
-import Post from "@/app/(afterLogin)/_component/Post";
-import {DefaultError, InfiniteData, useInfiniteQuery} from "@tanstack/react-query";
-import {Post as IPost} from '@/model/Post';
+import {useQuery} from "@tanstack/react-query";
 import {getFollowingPosts} from "@/app/(afterLogin)/home/_lib/getFollowingPosts";
-import {useInView} from "react-intersection-observer";
+import Post from "@/app/(afterLogin)/_component/Post";
+import { Post as IPost } from '@/model/Post';
 
 export default function FollowingPosts() {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-  } = useInfiniteQuery<IPost[], DefaultError, InfiniteData<IPost[]>, string[], number>({
-    queryKey: ['posts', "infinite", "followings"],
+  const { data } = useQuery<IPost[]>({
+    queryKey: ['posts', 'followings'],
     queryFn: getFollowingPosts,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage, pages) => lastPage.at(-1)?.postId
-  });
-  const {ref, inView, entry} = useInView({
-    /* Optional options */
-    threshold: 0,
-  });
+    staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+    gcTime: 300 * 1000,
+  })
 
-  useEffect(() => {
-    if (inView) {
-      !isFetching && hasNextPage && fetchNextPage()
-    }
-  }, [inView, isFetching, hasNextPage, fetchNextPage]);
-
-  return (
-    <>
-      {data?.pages?.map((group, i) => (
-        <Fragment key={i}>
-          {group.map((v) => <Post key={v.postId} post={v}/>)}
-        </Fragment>
-      ))}
-      <div ref={ref} style={{height: 50}}/>
-    </>
-  );
+  return data?.map((post) => (
+    <Post key={post.postId} post={post} />
+  ))
 }

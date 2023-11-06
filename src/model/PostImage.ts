@@ -2,6 +2,6 @@ import { Post } from "./Post"
 
 export interface PostImage {
   link: string,
-  imageId: string
+  imageId: number,
   Post?: Post
 }

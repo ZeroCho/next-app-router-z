@@ -1,25 +1,23 @@
 "use client";
 
-import style from "@/app/(afterLogin)/search/search.module.css";
-import React, {useState} from "react";
+import style from '../search.module.css';
+import {useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
-import {Route} from "next";
-
 export default function Tab() {
   const [current, setCurrent] = useState('hot');
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const onClickHot = () => {
-    let url = `/search?q=${searchParams.get('q')}`;
-    if (searchParams.has('pf')) {
-      url += `&pf=${searchParams.get('pf')}`
-    }
     setCurrent('hot');
-    router.replace(url as Route)
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete('f');
+    router.replace(`/search?${newSearchParams.toString()}`);
   }
   const onClickNew = () => {
     setCurrent('new');
-    router.replace(`/search?${searchParams.toString()}&f=live`)
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('f', 'live');
+    router.replace(`/search?${newSearchParams.toString()}`);
   }
 
   return (
@@ -35,5 +33,5 @@ export default function Tab() {
         </div>
       </div>
     </div>
-  )
+  );
 }

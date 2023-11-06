@@ -1,19 +1,15 @@
-import {NextPage} from "next";
+import {ReactNode} from "react";
+import styles from '@/app/(beforeLogin)/_component/main.module.css';
 
-interface Props {
-  children: React.ReactNode,
-  modal: React.ReactNode,
-}
-
-const Layout: NextPage<Props> = ({
-                                       children, modal
-                                     }) => {
+type Props = { children: ReactNode, modal: ReactNode };
+export default function Layout({ children, modal }: Props) {
   return (
-    <div>
-    {children}
-    {modal}
+    <div className={styles.container}>
+      {children}
+      {modal}
     </div>
   )
 }
 
-export default Layout;
+// 주소가 localhost:3001일 때는 children->page.tsx, modal->@modal/default.tsx
+// 주소가 localhost:3001/i/flow/login 때는 chldren->i/flow/login/page.tsx, modal->@modal/i/flow/login/page.tsx

@@ -1,35 +1,31 @@
 "use client";
 
-import style from './rightSearchZone.module.css'
-import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
+import style from "./rightSearchZone.module.css";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {Route} from "next";
+import React from "react";
+import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 
 export default function RightSearchZone() {
   const pathname = usePathname()
   const searchParams = useSearchParams();
   const router = useRouter();
-  console.log('pathname', pathname);
-
-  const onChangeAll = () => {
-    let url = `/search?q=${searchParams.get('q')}`;
-    if (searchParams.has('f')) {
-      url += `&f=${searchParams.get('f')}`
-    }
-    router.replace(url as Route);
-  };
 
   const onChangeFollow = () => {
-    let url = `/search?${searchParams.toString()}&pf=on`;
-    router.replace(url as Route);
-  };
-
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('pf', 'on');
+    router.replace(`/search?${newSearchParams.toString()}`);
+  }
+  const onChangeAll = () => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete('pf');
+    router.replace(`/search?${newSearchParams.toString()}`);
+  }
   if (pathname === '/explore') {
     return null;
   }
-
   if (pathname === '/search') {
-    return <div>
+    return (
+      <div>
         <h5 className={style.filterTitle}>검색 필터</h5>
         <div className={style.filterSection}>
           <div>
@@ -45,10 +41,10 @@ export default function RightSearchZone() {
           </div>
         </div>
       </div>
+    );
   }
-
   return (
-    <div style={{ marginBottom: 60, width: 350 }}>
+    <div style={{ marginBottom: 60, width: 'inherit' }}>
       <SearchForm />
     </div>
   )

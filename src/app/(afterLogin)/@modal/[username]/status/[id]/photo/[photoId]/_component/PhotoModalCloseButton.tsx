@@ -1,13 +1,13 @@
 "use client"
 
-import style from "@/app/(afterLogin)/_component/photoModal.module.css";
+import style from "../photoModal.module.css";
 import React from "react";
 import {useRouter} from "next/navigation";
 
 export default function PhotoModalCloseButton() {
   const router = useRouter();
   const onClick = () => {
-    router.back();
+    router.back(); // 뒤로가기
   };
   return (
     <button className={style.closeButton} onClick={onClick}>

@@ -1,85 +1,33 @@
 "use client";
 
-import style from "./commentForm.module.css";
-import React, {ChangeEventHandler, FormEventHandler, useEffect, useRef, useState} from "react";
-import {useUserStore} from "@/store/user";
-import {getMyInfo} from "@/app/(afterLogin)/layout";
-import {Post} from "@/model/Post";
-import {useParams} from "next/navigation";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useRef, useState} from "react";
+import style from './commentForm.module.css';
+import {useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 
 type Props = {
   id: string;
-  postId: string;
 }
-export default function CommentForm({id, postId}: Props) {
-  const params = useParams<{ username: string, id: string }>();
-  const me = useUserStore(store => store.me);
-  const add = useUserStore(store => store.add);
-  const imageRef = useRef<HTMLInputElement>(null);
+export default function CommentForm({ id }: Props) {
   const [content, setContent] = useState('');
-  const queryClient = useQueryClient()
-  const { data: session, status } = useSession()
+  const imageRef = useRef<HTMLInputElement>(null);
+  const { data: me } = useSession();
 
-  useEffect(() => {
-    if (!me && session?.user) {
-      const { email, name, image } = session.user;
-      if (email && name && image) {
-        add({
-          id: email,
-          nickname: name,
-          image: image,
-        });
-      }
-    }
-  }, [me, add, session]);
+  const onClickButton = () => {}
+  const onSubmit = () => {}
+  const onChange = () => {}
 
-  const onChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    setContent(e.target.value);
-  }
-
-  const onClickButton = () => {
-    imageRef.current?.click();
-  }
-
-  const onSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    fetch(`http://localhost:9090/api/posts/${params.id}/comments`, {
-      method: 'post',
-      body: JSON.stringify({
-        content
-      }),
-      credentials: 'include',
-    }).then((response: Response) => {
-      console.log(response.status);
-      if (response.status === 201) {
-        return response.json();
-      }
-    })
-      .then((data: Post) => {
-        if (data) {
-          queryClient.setQueryData<Post[]>(
-            ['comments', {id, postId}],
-            (old) => [data, ...(old || [])],
-          );
-          setContent('');
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
-  if (!me) {
+  const queryClient = useQueryClient();
+  const post = queryClient.getQueryData(['posts', id]);
+  console.log('post', post, id);
+  if (!post) {
     return null;
   }
-
   return (
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={me.image} alt={me.id}/>
+          <img src={me?.user?.image as string} alt={me?.user?.email as string}/>
         </div>
       </div>
       <div className={style.postInputSection}>
@@ -102,5 +50,5 @@ export default function CommentForm({id, postId}: Props) {
         </div>
       </div>
     </form>
-  )
+  );
 }

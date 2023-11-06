@@ -1,11 +1,9 @@
-import style from '@/app/(afterLogin)/home/_component/trend.module.css';
-import {Hashtag} from "@/model/Hashtag";
 import Link from "next/link";
+import style from './trend.module.css';
+import {Hashtag} from "@/model/Hashtag";
 
-interface Props {
-  trend: Hashtag
-}
-export default function Trend({ trend }: Props) {
+type Prop = { trend: Hashtag };
+export default function Trend({ trend }: Prop) {
   return (
     <Link href={`/search?q=${trend.title}`} className={style.container}>
       <div className={style.count}>실시간트렌드</div>

@@ -1,17 +1,14 @@
 "use client";
 
-import {ReactNode, useContext} from "react";
+import {useContext} from "react";
 import {TabContext} from "@/app/(afterLogin)/home/_component/TabProvider";
+import PostRecommends from "@/app/(afterLogin)/home/_component/PostRecommends";
+import FollowingPosts from "@/app/(afterLogin)/home/_component/FollowingPosts";
 
-interface Props {
-  recommend: ReactNode;
-  following: ReactNode;
-}
-export default function TabDecider({ recommend, following }: Props) {
+export default function TabDecider() {
   const { tab } = useContext(TabContext);
   if (tab === 'rec') {
-    return recommend;
-  } else {
-    return following;
+    return <PostRecommends />
   }
+  return <FollowingPosts />;
 }

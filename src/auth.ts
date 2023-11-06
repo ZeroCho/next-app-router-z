@@ -1,9 +1,11 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
+import {NextResponse} from "next/server";
 
 export const {
   handlers: { GET, POST },
   auth,
+  signIn,
 } = NextAuth({
   pages: {
     signIn: '/i/flow/login',
@@ -11,47 +13,31 @@ export const {
   },
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
-      name: "Credentials",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        username: { label: "id", type: "text", placeholder: "아이디" },
-        password: { label: "password", type: "password", placeholder: "비밀번호" }
-      },
-      async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        if (!credentials) return null;
-        return fetch(`${process.env.AUTH_URL}/api/login`, {
-          method: 'post',
-          body:
-            JSON.stringify({
-              id: credentials.username,
-              password: credentials.password,
-            }),
+      async authorize(credentials) {
+        const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-          }
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: credentials.username,
+            password: credentials.password,
+          }),
         })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            }
-          })
-          .then((data) => {
-            if (data) {
-              return {
-                name: data.nickname,
-                email: data.id,
-                image: data.image,
-                ...data,
-              };
-            }
-            return null;
-          })
-      }
-    })
-  ],
-})
+
+        if (!authResponse.ok) {
+          return null
+        }
+
+        const user = await authResponse.json()
+        console.log('user', user);
+        return {
+          email: user.id,
+          name: user.nickname,
+          image: user.image,
+          ...user,
+        }
+      },
+    }),
+  ]
+});

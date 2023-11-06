@@ -1,7 +1,6 @@
 import Link from "next/link";
 import style from "@/app/(afterLogin)/_component/post.module.css";
 import cx from 'classnames';
-import {PostImage} from "@/model/PostImage";
 
 type Props = {
   post: {
@@ -13,7 +12,7 @@ type Props = {
       image: string,
     },
     createdAt: Date,
-    Images?: PostImage[],
+    Images: any[],
   }
 }
 

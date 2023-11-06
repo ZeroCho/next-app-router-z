@@ -34,6 +34,9 @@
     align-items: center;
     margin-right: 12px;
     border-radius: 50%;
+    width: 134px;
+    height: 134px;
+    border: 1px solid lightgray;
 }
 .userImage img {
     width: 134px;
@@ -65,4 +68,19 @@
 }
 .followButton:hover {
     background-color: rgb(39,44,48);
+}
+
+.backButton {
+    width: 34px;
+    height: 34px;
+    background-color: #fff;
+    border: none;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.backButton:hover {
+    background-color: rgba(15, 20, 25, 0.1);
 }

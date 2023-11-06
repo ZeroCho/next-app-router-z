@@ -1,23 +1,13 @@
-"use client";
+"use client"
 
 import style from './followRecommend.module.css';
 import {User} from "@/model/User";
 
-interface Props {
+type Props = {
   user: User
 }
-
 export default function FollowRecommend({ user }: Props) {
-  const onFollow = () => {
-    fetch(`http://localhost:9090/api/users/${user.id}/follow`, {
-      method: 'post',
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          alert('팔로우 후 효과 구현');
-        }
-      })
-  };
+  const onFollow = () => {};
 
   return (
     <div className={style.container}>

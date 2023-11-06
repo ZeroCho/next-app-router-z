@@ -1,4 +1,3 @@
-
 .postUserSection {
     margin-right: 12px;
     width: 40px;
@@ -37,6 +36,9 @@
     font-size: 20px;
     line-height: 24px;
     outline: none;
+}
+.postForm textarea::placeholder {
+    font-family: Malgun Gothic;
 }
 .footerButtons {
     display: flex;

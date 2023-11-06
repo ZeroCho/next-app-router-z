@@ -1,11 +1,10 @@
-"use client";
+"use client"
 
-import React, {Fragment, useEffect} from "react";
-import Post from "@/app/(afterLogin)/_component/Post";
-import {DefaultError, InfiniteData, useInfiniteQuery} from "@tanstack/react-query";
-import {Post as IPost} from '@/model/Post';
-import MyPosts from "@/app/(afterLogin)/home/_component/MyPosts";
+import {InfiniteData, useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import {getPostRecommends} from "@/app/(afterLogin)/home/_lib/getPostRecommends";
+import Post from "@/app/(afterLogin)/_component/Post";
+import {Post as IPost} from '@/model/Post';
+import {Fragment, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
 
 export default function PostRecommends() {
@@ -14,32 +13,32 @@ export default function PostRecommends() {
     fetchNextPage,
     hasNextPage,
     isFetching,
-  } = useInfiniteQuery<IPost[], DefaultError, InfiniteData<IPost[]>, string[], number>({
-    queryKey: ["posts", "infinite", "recommends"],
+  } = useInfiniteQuery<IPost[], Object, InfiniteData<IPost[]>, [_1: string, _2: string], number>({
+    queryKey: ['posts', 'recommends'],
     queryFn: getPostRecommends,
     initialPageParam: 0,
-    getNextPageParam: (lastPage, pages) => lastPage.at(-1)?.postId
-  });
-  const { ref, inView, entry } = useInView({
-    /* Optional options */
+    getNextPageParam: (lastPage) => lastPage.at(-1)?.postId,
+    staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+    gcTime: 300 * 1000,
+  })
+  const { ref, inView } = useInView({
     threshold: 0,
+    delay: 0,
   });
 
   useEffect(() => {
     if (inView) {
-      !isFetching && hasNextPage && fetchNextPage()
+      !isFetching && hasNextPage && fetchNextPage();
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
 
   return (
     <>
-      <MyPosts/>
-      {data?.pages?.map((group, i) => (
+      {data?.pages.map((page, i) => (
         <Fragment key={i}>
-          {group.map((v) => <Post key={v.postId} post={v}/>)}
-        </Fragment>
-      ))}
+          {page.map((post) => <Post key={post.postId} post={post}/>)}
+        </Fragment>))}
       <div ref={ref} style={{ height: 50 }} />
     </>
-  );
+  )
 }

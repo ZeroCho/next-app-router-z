@@ -1,54 +1,29 @@
-import {Metadata} from "next";
-import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import style from './search.module.css';
-import React from "react";
-import BackButton from "@/app/(afterLogin)/search/_component/BackButton";
-import {redirect} from "next/navigation";
+import BackButton from "@/app/(afterLogin)/_component/BackButton";
+import SearchForm from "@/app/(afterLogin)/_component/SearchForm";
 import Tab from "@/app/(afterLogin)/search/_component/Tab";
-import getQueryClient from "@/app/(afterLogin)/_lib/getQueryClient";
-import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
-import {getSearchResult} from "@/app/(afterLogin)/search/_lib/getSearchResult";
 import SearchResult from "@/app/(afterLogin)/search/_component/SearchResult";
 
 type Props = {
-  params: { id: string }
-  searchParams: { q: string, pf?: string, f?: string }
+  searchParams: { q: string, f?: string, pf?: string };
 }
-
-export async function generateMetadata({params, searchParams}: Props): Promise<Metadata> {
-  return {
-    title: `${searchParams.q} - 검색 / Z`,
-    description: `${searchParams.q} - 검색 / Z`,
-  }
-}
-
-export default async function Search({searchParams}: Props) {
-  const queryClient = getQueryClient()
-  await queryClient.prefetchQuery({ queryKey: ['searchResults', searchParams], queryFn: getSearchResult });
-  const dehydratedState = dehydrate(queryClient)
-
-  if (!searchParams.q) {
-    redirect('/explore');
-  }
-
+export default function Search({ searchParams }: Props) {
   return (
     <main className={style.main}>
-      <HydrationBoundary state={dehydratedState}>
-        <div className={style.searchTop}>
-          <div className={style.searchZone}>
-            <div className={style.buttonZone}>
-              <BackButton/>
-            </div>
-            <div className={style.formZone}>
-              <SearchForm q={searchParams.q}/>
-            </div>
+      <div className={style.searchTop}>
+        <div className={style.searchZone}>
+          <div className={style.buttonZone}>
+            <BackButton/>
           </div>
-          <Tab/>
+          <div className={style.formZone}>
+            <SearchForm q={searchParams.q} />
+          </div>
         </div>
-        <div className={style.list}>
-          <SearchResult searchParams={searchParams} />
-        </div>
-      </HydrationBoundary>
+        <Tab/>
+      </div>
+      <div className={style.list}>
+        <SearchResult searchParams={searchParams} />
+      </div>
     </main>
   )
 }

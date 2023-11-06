@@ -1,6 +1,9 @@
-export async function getFollowingPosts({pageParam}: { pageParam?: number }) {
-  const res = await fetch(`http://localhost:9090/api/followingPosts${pageParam ? `?cursor=${pageParam}` : ''}`, {
-    cache: 'no-store', // 캐싱 안 함
+export async function getFollowingPosts() {
+  const res = await fetch(`http://localhost:9090/api/followingPosts`, {
+    next: {
+      tags: ['posts', 'followings'],
+    },
+    cache: 'no-store',
   });
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.

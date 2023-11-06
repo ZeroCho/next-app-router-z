@@ -1,29 +1,14 @@
-import React from "react";
-import type {Metadata, NextPage} from "next";
 import Main from "@/app/(beforeLogin)/_component/Main";
+import {auth} from "@/auth";
 import {redirect} from "next/navigation";
-import {getMyInfo} from "@/app/(afterLogin)/layout";
 
-const IS_LOGGED_IN = false;
-export async function generateMetadata(): Promise<Metadata> {
-  const me = await getMyInfo();
-  // read route params
-  if (me) {
-    return {
-      title: 'Z',
-      description: 'Z.com inspired by X.com',
-    }
-  }
-  return {
-    title: 'Z. 무슨 일이 일어나고 있나요? / Z',
-  }
-}
-
-const Home: NextPage = async () => {
-  const me = await getMyInfo();
-  if (me) {
+export default async function Home() {
+  const session = await auth();
+  if (session?.user) {
     redirect('/home');
+    return null;
   }
-  return <Main />
+  return (
+    <Main />
+  )
 }
-export default Home;
