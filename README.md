@@ -7,6 +7,8 @@
 - ch3-2: 섹션3의 react query 인피니트 스크롤링이 적용된 소스 코드
 - ch4: 배포 직전 소스 코드(포트 80으로 바꾸기 전)
 
+[강의교안](https://zerocho.notion.site/Next-js-App-Router-147c80ca7af046ddba6307f8a004a049?pvs=4)
+
 # Next App Router
 가장 크게 다른 점
 - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
