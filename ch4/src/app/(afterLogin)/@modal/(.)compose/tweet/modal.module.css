@@ -1,0 +1,139 @@
+.modalBackground {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal {
+    background: #ffffff;
+    position: relative;
+    top: 5%;
+    max-width: 80vw;
+    min-width: 600px;
+    max-height: 400px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.closeButton {
+    width: 34px;
+    height: 34px;
+    border-radius: 17px;
+    border: none;
+    cursor: pointer;
+    background-color: #fff;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.closeButton:hover {
+    background-color: rgba(15,20,25, 0.1);
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.modalBody {
+    padding: 0 16px;
+    flex: 1;
+    margin-top: 54px;
+    display: flex;
+    flex-direction: row;
+}
+
+.postUserSection {
+    margin-right: 12px;
+    width: 40px;
+}
+
+.postUserImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.postUserImage img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.inputDiv {
+    flex: 1;
+}
+
+.input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 20px;
+}
+.input::placeholder {
+    font-family: 'Malgun Gothic', sans-serif;
+}
+
+.modalFooter {
+    padding: 0 16px;
+}
+
+.modalDivider {
+    width: 100%;
+    border-bottom: 1px solid rgb(239, 243, 244);
+}
+.footerButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.footerButtonLeft {
+    flex: 1;
+}
+
+.uploadButton {
+    width: 34px;
+    height: 34px;
+    border: none;
+    cursor: pointer;
+    border-radius: 17px;
+    background-color: rgb(29, 155, 240, 0.01);
+    transition-duration: 0.2s;
+    transition-property: background-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uploadButton:hover {
+    background-color: rgb(29, 155, 240, 0.1);
+}
+.uploadButton svg {
+    fill: rgb(29, 155, 240);
+}
+
+.actionButton {
+    cursor: pointer;
+    width: 94px;
+    height: 36px;
+    border-radius: 18px;
+    border: none;
+    margin: 8px 0;
+    background-color: rgb(29, 155, 240);
+    color: white;
+    font-size: 17px;
+}
+.actionButton:disabled {
+    opacity: 0.5;
+}

@@ -1,0 +1,51 @@
+.container {
+    padding: 12px 0;
+    height: 66px;
+    display: flex;
+}
+
+.userLogo {
+    width: 40px;
+    margin-right: 12px;
+}
+
+.userLogo, .userLogo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.userInfo {
+    flex: 1;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.count {
+    color: rgb(83, 100, 113);
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.followButtonSection {
+    width: 76px;
+}
+
+.followButtonSection button {
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    color: white;
+    background: #000;
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px;
+    border-radius: 16px;
+}
+.followButtonSection button:hover {
+    background-color: rgb(39,44,48);
+}

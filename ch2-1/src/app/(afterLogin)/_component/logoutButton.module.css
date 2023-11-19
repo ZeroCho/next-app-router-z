@@ -1,0 +1,30 @@
+.logOutButton {
+    width: 258px;
+    height: 66px;
+    padding: 12px;
+    display: flex;
+    margin: 12px 0;
+    cursor: pointer;
+    border: none;
+    align-items: center;
+    background-color: #fff;
+    text-align: left;
+}
+.logOutButton:hover {
+    background-color: rgba(15,20,25, 0.1);
+    border-radius: 33px;
+}
+.logOutUserImage {
+    display: flex;
+    align-items: center;
+}
+.logOutUserImage img {
+    width: 40px;
+    border-radius: 50%;
+}
+.logOutUserName {
+    margin: 0 12px;
+}
+.logOutUserName > div:first-child {
+    font-weight: bold;
+}

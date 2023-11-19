@@ -1,0 +1,23 @@
+.container {
+    padding: 12px 16px;
+    height: 82px;
+    display: block;
+}
+.container:hover {
+    background-color: rgba(0,0,0,0.03);
+}
+
+.title {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
+.count {
+    color: rgb(83, 100, 113);
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: lighter;
+}
