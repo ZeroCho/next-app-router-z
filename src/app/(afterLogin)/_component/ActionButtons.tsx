@@ -1,18 +1,257 @@
 "use client"
 import style from './post.module.css';
 import cx from 'classnames';
+import {MouseEventHandler} from "react";
+import {InfiniteData, useMutation, useQueryClient} from "@tanstack/react-query";
+import {Post} from "@/model/Post";
+import {useSession} from "next-auth/react";
 
 type Props = {
-  white?: boolean
+  white?: boolean,
+  post: Post,
 }
-export default function ActionButtons({ white }: Props) {
-  const commented = false;
-  const reposted = false;
-  const liked = false;
+export default function ActionButtons({ white, post }: Props) {
+  const queryClient = useQueryClient();
+  const { data: session }  = useSession();
+  const commented = !!post.Comments?.find((v) => v.userId === session?.user?.email);
+  const reposted = !!post.Reposts?.find((v) => v.userId === session?.user?.email);
+  const liked = !!post.Hearts?.find((v) => v.userId === session?.user?.email);
+  const { postId } = post;
 
-  const onClickComment = () => {}
-  const onClickRepost = () => {}
-  const onClickHeart = () => {}
+  const heart = useMutation({
+    mutationFn: () => {
+      return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}/heart`, {
+        method: 'post',
+        credentials: 'include',
+      })
+    },
+    onMutate() {
+      const queryCache = queryClient.getQueryCache()
+      const queryKeys = queryCache.getAll().map(cache => cache.queryKey)
+      console.log('queryKeys', queryKeys);
+      queryKeys.forEach((queryKey) => {
+        if (queryKey[0] === 'posts') {
+          console.log(queryKey[0]);
+          const value: Post | InfiniteData<Post[]> | undefined = queryClient.getQueryData(queryKey);
+          if (value && 'pages' in value) {
+            console.log('array', value);
+            const obj = value.pages.flat().find((v) => v.postId === postId);
+            if (obj) { // 존재는 하는지
+              const pageIndex = value.pages.findIndex((page) => page.includes(obj));
+              const index = value.pages[pageIndex].findIndex((v) => v.postId === postId);
+              console.log('found index', index);
+              const shallow = { ...value };
+              value.pages = {...value.pages }
+              value.pages[pageIndex] = [...value.pages[pageIndex]];
+              shallow.pages[pageIndex][index] = {
+                ...shallow.pages[pageIndex][index],
+                Hearts: [{ userId: session?.user?.email as string }],
+                _count: {
+                  ...shallow.pages[pageIndex][index]._count,
+                  Hearts: shallow.pages[pageIndex][index]._count.Hearts + 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          } else if (value) {
+            // 싱글 포스트인 경우
+            if (value.postId === postId) {
+              const shallow = {
+                ...value,
+                Hearts: [{ userId: session?.user?.email as string }],
+                _count: {
+                  ...value._count,
+                  Hearts: value._count.Hearts + 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          }
+        }
+      })
+    },
+    onError() {
+      const queryCache = queryClient.getQueryCache()
+      const queryKeys = queryCache.getAll().map(cache => cache.queryKey)
+      console.log('queryKeys', queryKeys);
+      queryKeys.forEach((queryKey) => {
+        if (queryKey[0] === 'posts') {
+          const value: Post | InfiniteData<Post[]> | undefined = queryClient.getQueryData(queryKey);
+          if (value && 'pages' in value) {
+            console.log('array', value);
+            const obj = value.pages.flat().find((v) => v.postId === postId);
+            if (obj) { // 존재는 하는지
+              const pageIndex = value.pages.findIndex((page) => page.includes(obj));
+              const index = value.pages[pageIndex].findIndex((v) => v.postId === postId);
+              console.log('found index', index);
+              const shallow = { ...value };
+              value.pages = {...value.pages }
+              value.pages[pageIndex] = [...value.pages[pageIndex]];
+              shallow.pages[pageIndex][index] = {
+                ...shallow.pages[pageIndex][index],
+                Hearts: shallow.pages[pageIndex][index].Hearts.filter((v) => v.userId !== session?.user?.email),
+                _count: {
+                  ...shallow.pages[pageIndex][index]._count,
+                  Hearts: shallow.pages[pageIndex][index]._count.Hearts - 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          } else if (value) {
+            // 싱글 포스트인 경우
+            if (value.postId === postId) {
+              const shallow = {
+                ...value,
+                Hearts: value.Hearts.filter((v) => v.userId !== session?.user?.email),
+                _count: {
+                  ...value._count,
+                  Hearts: value._count.Hearts - 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          }
+        }
+      })
+    },
+    onSettled() {
+      // queryClient.invalidateQueries({
+      //   queryKey: ['posts']
+      // })
+    },
+  });
+
+  const unheart = useMutation({
+    mutationFn: () => {
+      return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${postId}/heart`, {
+        method: 'delete',
+        credentials: 'include',
+      })
+    },
+    onMutate() {
+      const queryCache = queryClient.getQueryCache()
+      const queryKeys = queryCache.getAll().map(cache => cache.queryKey)
+      console.log('queryKeys', queryKeys);
+      queryKeys.forEach((queryKey) => {
+        if (queryKey[0] === 'posts') {
+          const value: Post | InfiniteData<Post[]> | undefined = queryClient.getQueryData(queryKey);
+          if (value && 'pages' in value) {
+            console.log('array', value);
+            const obj = value.pages.flat().find((v) => v.postId === postId);
+            if (obj) { // 존재는 하는지
+              const pageIndex = value.pages.findIndex((page) => page.includes(obj));
+              const index = value.pages[pageIndex].findIndex((v) => v.postId === postId);
+              console.log('found index', index);
+              const shallow = { ...value };
+              value.pages = {...value.pages }
+              value.pages[pageIndex] = [...value.pages[pageIndex]];
+              shallow.pages[pageIndex][index] = {
+                ...shallow.pages[pageIndex][index],
+                Hearts: shallow.pages[pageIndex][index].Hearts.filter((v) => v.userId !== session?.user?.email),
+                _count: {
+                  ...shallow.pages[pageIndex][index]._count,
+                  Hearts: shallow.pages[pageIndex][index]._count.Hearts - 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          } else if (value) {
+            // 싱글 포스트인 경우
+            if (value.postId === postId) {
+              const shallow = {
+                ...value,
+                Hearts: value.Hearts.filter((v) => v.userId !== session?.user?.email),
+                _count: {
+                  ...value._count,
+                  Hearts: value._count.Hearts - 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          }
+        }
+      })
+    },
+    onError() {
+      const queryCache = queryClient.getQueryCache()
+      const queryKeys = queryCache.getAll().map(cache => cache.queryKey)
+      console.log('queryKeys', queryKeys);
+      queryKeys.forEach((queryKey) => {
+        if (queryKey[0] === 'posts') {
+          console.log(queryKey[0]);
+          const value: Post | InfiniteData<Post[]> | undefined = queryClient.getQueryData(queryKey);
+          if (value && 'pages' in value) {
+            console.log('array', value);
+            const obj = value.pages.flat().find((v) => v.postId === postId);
+            if (obj) { // 존재는 하는지
+              const pageIndex = value.pages.findIndex((page) => page.includes(obj));
+              const index = value.pages[pageIndex].findIndex((v) => v.postId === postId);
+              console.log('found index', index);
+              const shallow = { ...value };
+              value.pages = {...value.pages }
+              value.pages[pageIndex] = [...value.pages[pageIndex]];
+              shallow.pages[pageIndex][index] = {
+                ...shallow.pages[pageIndex][index],
+                Hearts: [{ userId: session?.user?.email as string }],
+                _count: {
+                  ...shallow.pages[pageIndex][index]._count,
+                  Hearts: shallow.pages[pageIndex][index]._count.Hearts + 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          } else if (value) {
+            // 싱글 포스트인 경우
+            if (value.postId === postId) {
+              const shallow = {
+                ...value,
+                Hearts: [{ userId: session?.user?.email as string }],
+                _count: {
+                  ...value._count,
+                  Hearts: value._count.Hearts + 1,
+                }
+              }
+              queryClient.setQueryData(queryKey, shallow);
+            }
+          }
+        }
+      })
+    },
+    onSettled() {
+
+    },
+  })
+
+  const onClickComment: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    const formData = new FormData();
+    formData.append('content', '답글 테스트');
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/comments`, {
+      method: 'post',
+      credentials: 'include',
+      body: formData
+    });
+  }
+  const onClickRepost: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    if (!reposted) {
+      const formData = new FormData();
+      formData.append('content', '재게시 테스트');
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${post.postId}/reposts`, {
+        method: 'post',
+        credentials: 'include',
+        body: formData
+      });
+    }
+  }
+  const onClickHeart: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    if (liked) {
+      unheart.mutate();
+    } else {
+      heart.mutate();
+    }
+  }
 
   return (
     <div className={style.actionButtons}>
@@ -25,7 +264,7 @@ export default function ActionButtons({ white }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{1 || ''}</div>
+        <div className={style.count}>{post._count?.Comments || ''}</div>
       </div>
       <div className={cx(style.repostButton, reposted && style.reposted, white && style.white)}>
         <button onClick={onClickRepost}>
@@ -36,7 +275,7 @@ export default function ActionButtons({ white }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{1 || ''}</div>
+        <div className={style.count}>{post._count?.Reposts || ''}</div>
       </div>
       <div className={cx([style.heartButton, liked && style.liked, white && style.white])}>
         <button onClick={onClickHeart}>
@@ -47,7 +286,7 @@ export default function ActionButtons({ white }: Props) {
             </g>
           </svg>
         </button>
-        <div className={style.count}>{0 || ''}</div>
+        <div className={style.count}>{post._count?.Hearts || ''}</div>
       </div>
     </div>
   )

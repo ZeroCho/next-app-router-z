@@ -8,7 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 type Props = {
   searchParams: { q: string, f?: string, pf?: string };
 }
-export default function SearchResult({ searchParams}: Props) {
+export default function SearchResult({ searchParams }: Props) {
   const {data} = useQuery<IPost[], Object, IPost[], [_1: string, _2: string, Props['searchParams']]>({
     queryKey: ["posts", "search", searchParams],
     queryFn: getSearchResult,

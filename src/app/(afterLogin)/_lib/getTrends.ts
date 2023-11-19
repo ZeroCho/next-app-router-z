@@ -1,8 +1,9 @@
 export async function getTrends() {
-  const res = await fetch(`http://localhost:9090/api/trends`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hashtags/trends`, {
     next: {
       tags: ['trends'],
     },
+    credentials: 'include',
     cache: 'no-store',
   });
   // The return value is *not* serialized
