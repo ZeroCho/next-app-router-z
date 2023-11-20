@@ -6,6 +6,7 @@
 - ch3-1: 섹션3의 next-auth가 적용된 소스 코드
 - ch3-2: 섹션3의 react query 인피니트 스크롤링이 적용된 소스 코드
 - ch4: 배포 직전 소스 코드(포트 80으로 바꾸기 전)
+- [z-com](https://github.com/zerocho/z-com): [z.nodebird.com](https://z.nodebird.com) 배포 소스 코드(답글, 재게시 등등이 완성되어 있어요!)
 
 [강의교안](https://zerocho.notion.site/Next-js-App-Router-147c80ca7af046ddba6307f8a004a049?pvs=4)
 
