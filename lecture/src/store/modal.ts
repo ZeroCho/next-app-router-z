@@ -3,7 +3,7 @@ import {Post} from "@/model/Post";
 
 interface ModalState {
   mode: 'new' | 'comment',
-  data: Post
+  data: Post | null,
   setMode(mode: 'new' | 'comment'): void;
   setData(data: Post): void;
   reset(): void;
