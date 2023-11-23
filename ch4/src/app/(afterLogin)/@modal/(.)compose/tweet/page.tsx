@@ -5,13 +5,13 @@ import {ChangeEventHandler, FormEvent, FormEventHandler, useRef, useState} from 
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import TextareaAutosize from "react-textarea-autosize";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {InfiniteData, useMutation, useQueryClient} from "@tanstack/react-query";
 import {Post} from "@/model/Post";
 import {useModalStore} from "@/store/modal";
 import Link from "next/link";
 
 export default function TweetModal() {
-  const [content, setContent] = useState();
+  const [content, setContent] = useState('');
   const imageRef = useRef<HTMLInputElement>(null);
   const { data: me } = useSession();
   const router = useRouter();
