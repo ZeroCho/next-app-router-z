@@ -1,6 +1,6 @@
 .main {
     width: 600px;
-    min-height: 100dvh;
+    height: 100dvh;
     border-color: rgb(239, 243, 244);
     border-right-width: 1px;
     border-left-width: 1px;
@@ -9,13 +9,13 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 0 16px;
 }
 
 .header {
     height: 54px;
     display: flex;
     align-items: center;
+    padding: 0 16px;
 }
 .header h2 {
     margin-left: 40px;
@@ -77,4 +77,9 @@
     margin-top: 8px;
     color: #536471;
     font-size: 13px;
+}
+.list {
+    flex: 1;
+    padding: 0 16px;
+    overflow-y: scroll;
 }

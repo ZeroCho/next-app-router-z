@@ -22,6 +22,7 @@
     "react-dom": "^18",
     "react-intersection-observer": "^9.5.2",
     "react-textarea-autosize": "^8.5.3",
+    "socket.io-client": "^4.7.2",
     "zustand": "^4.4.6"
   },
   "devDependencies": {
