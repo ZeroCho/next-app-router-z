@@ -85,7 +85,7 @@ export default function MessageForm({id}: Props) {
         e.preventDefault();
         onSubmit()
       }}>
-        <TextareaAutosize value={content} onChange={onChangeContent} onKeyDown={onEnter}/>
+        <TextareaAutosize value={content} onChange={onChangeContent} onKeyDown={onEnter} placeholder="새 쪽지 작성하기"/>
         <button className={style.submitButton} type="submit" disabled={!content?.trim()}>
           <svg viewBox="0 0 24 24" width={18} aria-hidden="true"
                className="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-z80fyv r-19wmn03">
