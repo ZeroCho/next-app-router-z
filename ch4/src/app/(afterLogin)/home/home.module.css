@@ -9,3 +9,15 @@
     flex-direction: column;
     align-items: stretch;
 }
+
+@keyframes rotating {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+.loader {
+    animation: rotating 2s linear infinite;
+}
