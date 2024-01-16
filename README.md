@@ -1,11 +1,9 @@
 # 폴더 설명
-코드를 일일이 입력하지 않고 이 폴더들에서 많이 복사해옵니다.
+코드를 일일이 입력하지 않고 이 폴더들에서 많이 복사해옵니다. 일일이 입력할 수가 없는게, svg 같은 태그도 있고 css도 너무 많습니다. 제가 뭔가를 복사한다고 하면 여러분들도 여기서 복사해오세요.
 
-일일이 입력할 수가 없는게, svg 같은 태그도 있고 css도 너무 많습니다. 제가 뭔가를 복사한다고 하면 여러분들도 여기서 복사해오세요.
+기존 제 다른 클론 코딩 강좌를 생각하고 **따라치기 위해 들으시면 안 됩니다**. 일례로 리액트 노드버드 강의보다 **코드량이 3배 정도 더 많아서** 따라치기보다는 복사하면서 설명하는 방식을 취했습니다.
 
-기존 제 다른 클론 코딩 강좌를 생각하고 따라치기 위해 들으시면 안 됩니다. 일례로 리액트 노드버드 강의보다 코드량이 3배 정도 더 많아서 따라치기보다는 복사하면서 설명하는 방식을 취했습니다.
-
-ch0 폴더에서부터 시작하시는 것을 권고드립니다.
+**ch0 폴더에서부터 시작**하시는 것을 강력히 추천드립니다.
 
 - ch0: 초기 세팅("css module을 선택한 이유" 강의가 끝났을 때의 코드 - 이 폴더를 복사해서 시작하시면 편합니다)
 - ch1: 섹션1이 완료된 코드
@@ -54,7 +52,7 @@ npx create-next-app@latest
 - vanilla-extract를 사용하려 했으나 Windows에서 Server Component 지원하지 않음
   [링크](https://github.com/vanilla-extract-css/vanilla-extract/issues/1086)
 - WSL을 쓰면 되나 Hot reloading이 문제가 생김
-- 추후 이 문제가 해결되면 vanilla-extract 도입 예정
+- 추후 이 문제가 해결되면 vanilla-extract 도입 예정(보너스 강의에서 다룹니다!)
 
 ### layout에서 현재 라우트 확인하기
 ```
@@ -136,8 +134,9 @@ npx msw init public/ --save
 ```
 npm install next-auth@5 @auth/core
 ```
+- next-auth@5가 설치가 안 되면 next-auth@beta를 대신 설치
 - auth.ts, middleware.ts, app/api/auth/[...nextauth]/route.ts 생성
-- 로그인을 위해 signIn("credentials") 호출(csrf 토큰 알아서 관리)
+- 로그인을 위해 signIn("credentials") 호출(csrf 토큰 알아서 관리), 5.0.0-beta.4에서는 버그 있으니 주의!
 - 로그아웃을 위해 signOut 호출
 - 클라이언트에서 내 정보 가져올 때는 useSession(), 서버에서는 await auth();
 - session 안 내 정보는 email, name, image만 가능(헷갈리니 주의)
@@ -184,8 +183,6 @@ npm install react-intersection-observer
 
 ## 빌드(SSG, ISR, Dynamic)
 [링크](https://nextjs.org/docs/app/building-your-application/deploying)
-
-# 보너스
 
 ## Zustand
 "use client" 아래에서만 사용 가능
