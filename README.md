@@ -1,9 +1,15 @@
 # 폴더 설명
-코드를 일일이 입력하지 않고 이 폴더들에서 많이 복사해옵니다. 일일이 입력할 수가 없는게, svg 같은 태그도 있고 css도 너무 많습니다. 제가 뭔가를 복사한다고 하면 여러분들도 여기서 복사해오세요.
+코드를 일일이 입력하지 않고 이 폴더들에서 많이 복사해옵니다.
 
-- ch0: 초기 세팅(이 폴더를 복사해서 시작하시면 편합니다)
+일일이 입력할 수가 없는게, svg 같은 태그도 있고 css도 너무 많습니다. 제가 뭔가를 복사한다고 하면 여러분들도 여기서 복사해오세요.
+
+기존 제 다른 클론 코딩 강좌를 생각하고 따라치기 위해 들으시면 안 됩니다. 일례로 리액트 노드버드 강의보다 코드량이 3배 정도 더 많아서 따라치기보다는 복사하면서 설명하는 방식을 취했습니다.
+
+ch0 폴더에서부터 시작하시는 것을 권고드립니다.
+
+- ch0: 초기 세팅("css module을 선택한 이유" 강의가 끝났을 때의 코드 - 이 폴더를 복사해서 시작하시면 편합니다)
 - ch1: 섹션1이 완료된 코드
-- ch2-1: 섹션2의 classnames까지의 소스 코드
+- ch2-1: 섹션2의 "classnames로 클래스 합성하기"까지의 소스 코드
 - ch2-2: 섹션2가 완료된 소스 코드
 - ch3-1: 섹션3의 next-auth가 적용된 소스 코드
 - ch3-2: 섹션3의 react query 인피니트 스크롤링이 적용된 소스 코드
@@ -36,7 +42,7 @@ npx create-next-app@latest
 
 ## 디렉토리 구성하기
 - [username]은 사용자 프로필
-- i/flow/signup이나 compose/tweet은 페이지 전환 없이 모달 띄워야 함
+- i/flow/signup, i/flow/login이나 compose/tweet은 페이지 전환 없이 모달 띄워야 함
 - 로그인 후에는 /home으로 redirect
 - /login도 /i/flow/login으로 redirect
 
@@ -48,11 +54,13 @@ npx create-next-app@latest
 - vanilla-extract를 사용하려 했으나 Windows에서 Server Component 지원하지 않음
   [링크](https://github.com/vanilla-extract-css/vanilla-extract/issues/1086)
 - WSL을 쓰면 되나 Hot reloading이 문제가 생김
+- 추후 이 문제가 해결되면 vanilla-extract 도입 예정
 
 ### layout에서 현재 라우트 확인하기
 ```
   const segment = useSelectedLayoutSegment();
 ```
+- layout에서만 사용 가능
 - 바로 하위만 나옴(compose/tweet의 경우 compose만 나옴)
 - 모든 depth를 가져오고 싶다면 useSelectedLayoutSegments (['compose', 'tweet'])
 - layout의 state는 모든 페이지에 공유됨
@@ -80,6 +88,9 @@ at stringify (<anonymous>)
 - _components 폴더에 주로 Client Component 생성
 - useState, useRef, useEffect, useContext, useRouter, useSearchParams, onClick 등등 많다
 
+- **클라이언트 컴포넌트도 서버쪽에서 렌더링 됨, 즉 SSR 대상**
+- 서버 컴포넌트는 서버에서만 렌더링 됨
+
 ### compose/tweet 처리
 compose/tweet도 이걸로 처리
 - @modal/compose/tweet으로 바꾸고 parallel router 적용
@@ -104,7 +115,7 @@ npm i -D @faker-js/faker
 ```
 
 ## 서버 컴포넌트와 클라이언트 컴포넌트 같이 쓰기
-- Client Component에서 Server Component import하면 안 됨
+- Client Component에서 Server Component import하면 안 됨, import하면 Server Component도 Client Component처럼 취급됨
 - props(children이나 기타 props)로 넘길 것
 
 # 그런데 백엔드 개발자가 API를 아직 못 만들었다.
