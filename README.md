@@ -15,8 +15,6 @@
 - lecture: 강의 완성본 코드(버그가 좀 있습니다. 버그 해결은 아래 z-com 레포지토리에서 꾸준히 하고있어요.)
 - [z-com](https://github.com/zerocho/z-com): [z.nodebird.com](https://z.nodebird.com) 배포 소스 코드(답글, 재게시, 실시간 채팅 등등이 완성되어 있어요!)
 
-[강의교안](https://zerocho.notion.site/Next-js-App-Router-147c80ca7af046ddba6307f8a004a049?pvs=4)
-
 # Next App Router
 가장 크게 다른 점
 - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
@@ -25,6 +23,12 @@
 - 서버 컴포넌트 분리로 인한 최적화
 - 데이터 캐시
 - 서버 액션
+
+# 클론코딩의 장단점
+- 포트폴리오로 사용 금지(수강생들이 같은 걸 많이 제출해서 눈치챔)
+- 뇌 빼고 따라만 하는 경우는 실력이 전혀 늘지 않음 → 스스로 해볼 것
+- HTML, CSS를 개발자도구를 통해 공부할 수 있고, HTTP 요청도 네트워크 탭을 통해 분석해볼 수 있음.
+- 아이디어가 안 떠오를 때 좋은 방법임. 보통은 쓰던 기능만 골라서 쓰는데 클론코딩을 하다보면 처음 보는 기능을 구현하기 위해 온갖 시도를 해보게 됨 → 공식문서를 자세하게 읽게 됨
 
 # 프로젝트 세팅하기
 **처음에 직접 세팅하기보단 ch0 폴더 내부 내용을 복사해서 시작하시면 편합니다.**
@@ -44,6 +48,11 @@ npx create-next-app@latest
 - 로그인 후에는 /home으로 redirect
 - /login도 /i/flow/login으로 redirect
 
+## page.tsx, layout.tsx, template.tsx
+- 이름은 고정임(바꿀 수 없음)
+- layout.tsx와 template.tsx는 공존할 수 없음
+- page.tsx는 layout.tsx의 자식으로 들어감
+
 ### Routing Group
 - (afterLogin), (beforeLogin) 폴더는 실제로 경로에 반영되지는 않음
 - 하위 폴더들에 layout 적용 용도
@@ -58,16 +67,17 @@ npx create-next-app@latest
 ```
   const segment = useSelectedLayoutSegment();
 ```
-- layout에서만 사용 가능
+- layout에서만 사용 가능, page에서는 사용 불가(usePathname 사용할 것)
 - 바로 하위만 나옴(compose/tweet의 경우 compose만 나옴)
 - 모든 depth를 가져오고 싶다면 useSelectedLayoutSegments (['compose', 'tweet'])
 - layout의 state는 모든 페이지에 공유됨
-- 공유하기 싫다면 layout 대신 template.ts 쓰기
+- 공유하기 싫다면 layout 대신 template.tsx 쓰기(매번 새로 렌더링 됨)
 
 ### parallel router, intercepting routes 적용
 [링크](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes)
 
 i/flow/signup과 i/flow/login은 이걸로 처리
+- @ 폴더 안에 default.tsx 잊지 말기
 
 ### i/flow/signup, i/flow/login 모달 시 주의
 - (beforeLogin) 내부의 @modal 안에 (.)/flow/signup을 만들어야 함
@@ -87,7 +97,7 @@ at stringify (<anonymous>)
 - useState, useRef, useEffect, useContext, useRouter, useSearchParams, onClick 등등 많다
 
 - **클라이언트 컴포넌트도 서버쪽에서 렌더링 됨, 즉 SSR 대상**
-- 서버 컴포넌트는 서버에서만 렌더링 됨
+- 서버 컴포넌트는 서버"에서만" 렌더링 됨
 
 ### compose/tweet 처리
 compose/tweet도 이걸로 처리
@@ -111,6 +121,7 @@ compose/tweet도 이걸로 처리
 ```
 npm i -D @faker-js/faker
 ```
+- 용량이 크므로 배포 시에는 제거해야 용량을 줄일 수 있음
 
 ## 서버 컴포넌트와 클라이언트 컴포넌트 같이 쓰기
 - Client Component에서 Server Component import하면 안 됨, import하면 Server Component도 Client Component처럼 취급됨
@@ -122,13 +133,16 @@ npm i -D @faker-js/faker
 npm install msw -D
 npx msw init public/ --save
 ```
+- 실제 백엔드 서버로 보내는 요청을 가로챌 수 있음
+- 프론트 개발자가 임의로 응답을 만들어낼 수 있음(성공, 400, 500 에러 모두 가능)
+
 [해당 이슈로 msw 서버에서 사용 불가](https://github.com/mswjs/msw/issues/1644)
 - 위 이슈 해결되기 전까지는 http 서버 직접 생성
 
 ## Server Actions
 - 회원가입에 적용하기(Next 14부터 가능)
-- 클라이언트 컴포넌트에서도 사용 가능
-- useFormState와 useFormStatus 적용하기
+- 클라이언트 컴포넌트에서도 server action 함수를 import 해서 사용 가능
+- 폼 검사를 위해 useFormState와 useFormStatus 적용하기
 
 ## next-auth@5
 ```
@@ -181,10 +195,49 @@ npm install react-intersection-observer
 ## 캐시 전략
 [링크](https://nextjs.org/docs/app/building-your-application/caching)
 
+캐시할 데이터 종류 구분하기
+![img.png](img.png)
+- Request Memo(렌더링 시 GET Request 시 같은 주소 fetch면 한 번만 요청해서 가져옴, route.js에서는 안 됨)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
+- Data Cache(한 번 fetch한 것을 서버가 기억해두고 있다가 다음 요청 때 재사용)
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)
+- Full Route Cache: 페이지 전체를 캐싱하는 것(static page만 가능, page router의 ISR을 대체)
+![img_5.png](img_5.png)
+- Router Cache: 클라이언트에서 layout, page별로 따로 캐싱해두는 것
+![img_6.png](img_6.png)
+- Static vs Dynamic rendering: Dynamic function을 쓰는가 vs Cache를 쓰는가
+- dynamic function을 쓰지 않고 cache를 활용하면 static 페이지
 ## 빌드(SSG, ISR, Dynamic)
 [링크](https://nextjs.org/docs/app/building-your-application/deploying)
 
 ## Zustand
 "use client" 아래에서만 사용 가능
+- context api 대비 최적화가 기본 적용되어 있어서 신경쓸 게 없다.
 - client component에서는 async component 불가능
 - 도입 후 새로고침 한 번씩 해볼 것
+
+## Vanilla Extract
+```
+npm i @vanilla-extract/css @vanilla-extract/next-plugin
+```
+next.config.js
+```
+const {
+  createVanillaExtractPlugin
+} = require('@vanilla-extract/next-plugin');
+const withVanillaExtract = createVanillaExtractPlugin();
+...
+module.exports = withVanillaExtract(nextConfig);
+```
+- app/globals.css를 app/globalTheme.css.ts로 대체
+- :root에 @media (prefers-color-scheme: dark)를 적용하려면 조금 복잡함
+- (beforeLogin)/_component 내부 css.ts 파일들이 VE 파일들임
+- globalStyle 함수를 보면 알겠지만, nested selector를 사용하려면 뭔가 부자연스러움
+
+# 배포하기
+- npm run build로 결과 파일 생성
+- 빌드 시 용량 잘 확인하기
+- .env, .env.production 값 실제 서버 값으로 수정하기
+- 서버에서 npm run start로 실행하면 됨
