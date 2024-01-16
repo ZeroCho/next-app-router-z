@@ -108,12 +108,9 @@ compose/tweet도 이걸로 처리
 - 새로고침 시에도 백그라운드는 home이 보여야 함
 - compose/tweet 폴더 한 번 더 만들어주기
 
-### home/@modal/(..)compose/tweet은 안 되나요?
+### (afterLogin)/home/@modal/(..)compose/tweet은 안 되나요?
 - home 폴더 안에 @modal은 app/(afterLogin)/layout.tsx에서 인식되지 않아서 사용 불가
-
-### 여전히 잇는 이슈
-[링크](https://github.com/vercel/next.js/issues/49614)
-[링크](https://github.com/vercel/next.js/issues/52533)
+- layout.tsx와 같은 위치인 app/(afterLogin) 안에 @modal을 넣어야 함
 
 ## faker.js
 - faker.js는 더미데이터 생성용
