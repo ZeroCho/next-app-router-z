@@ -15,6 +15,10 @@
 - lecture: 강의 완성본 코드(버그가 좀 있습니다. 버그 해결은 아래 z-com 레포지토리에서 꾸준히 하고있어요.)
 - [z-com](https://github.com/zerocho/z-com): [z.nodebird.com](https://z.nodebird.com) 배포 소스 코드(답글, 재게시, 실시간 채팅 등등이 완성되어 있어요!)
 
+# 수강생분들의 강의노트
+저보다 더 정리를 잘 해두신 분들의 노트입니다. 같이 보시면서 공부하시면 좋을 것 같습니다.
+[수강생 베스트 강의노트 링크](https://zerocho.notion.site/Next-js14-7ff657dc0ec544759d0fc2e6e28da057?pvs=4)
+
 # Next App Router
 가장 크게 다른 점
 - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
