@@ -10,7 +10,6 @@
     "mock": "npx tsx watch ./src/mocks/http.ts"
   },
   "dependencies": {
-    "@auth/core": "^0.27.0",
     "@faker-js/faker": "^8.2.0",
     "@tanstack/react-query": "^5.4.3",
     "classnames": "^2.3.2",
