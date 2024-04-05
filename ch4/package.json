@@ -16,7 +16,7 @@
     "cookie": "^0.6.0",
     "dayjs": "^1.11.10",
     "next": "^14",
-    "next-auth": "^5.0.0-beta.11",
+    "next-auth": "^5.0.0-beta.16",
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.5.2",
@@ -35,7 +35,7 @@
     "eslint": "^8",
     "eslint-config-next": "14",
     "express": "^4.18.2",
-    "msw": "2.1",
+    "msw": "^2.2.2",
     "typescript": "^5"
   },
   "msw": {

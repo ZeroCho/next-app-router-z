@@ -36,7 +36,7 @@ export default async (prevState: any, formData: FormData) => {
     })
   } catch (err) {
     console.error(err);
-    return;
+    return { message: null };
   }
 
   if (shouldRedirect) {

@@ -6,6 +6,7 @@ import Post from "@/app/(afterLogin)/_component/Post";
 import {Post as IPost} from '@/model/Post';
 import {Fragment, useEffect} from "react";
 import {useInView} from "react-intersection-observer";
+import {useSession} from "next-auth/react";
 
 export default function PostRecommends() {
   const {

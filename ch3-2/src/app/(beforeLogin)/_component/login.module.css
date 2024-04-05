@@ -92,6 +92,12 @@
     background-color: rgb(39,44,48);
 }
 
+.message {
+    font-weight: bold;
+    color: red;
+    text-align: center;
+}
+
 .closeButton {
     width: 34px;
     height: 34px;

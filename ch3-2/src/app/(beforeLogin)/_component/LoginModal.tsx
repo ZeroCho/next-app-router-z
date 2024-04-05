@@ -2,7 +2,7 @@
 
 import style from '@/app/(beforeLogin)/_component/login.module.css';
 import {ChangeEventHandler, FormEventHandler, useState} from "react";
-import {redirect, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";
 
 export default function LoginModal() {
@@ -15,11 +15,12 @@ export default function LoginModal() {
     e.preventDefault();
     setMessage('');
     try {
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         username: id,
         password,
         redirect: false,
       })
+      console.log(result);
       router.replace('/home');
     } catch (err) {
       console.error(err);
