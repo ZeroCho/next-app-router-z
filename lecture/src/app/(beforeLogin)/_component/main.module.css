@@ -1,29 +1,38 @@
 .container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: rgb(var(--background-end-rgb));
     width: 100dvw;
     height: 100dvh;
-    padding: 36px;
 }
 .left {
+    flex: 1;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
-.left img {
-    width: 55px;
-    height: 65px;
-}
-
 .right {
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
+
 .right h1 {
-    font-size: 40px;
     font-weight: bold;
+    font-size: 64px;
     margin: 48px 0;
+}
+.right h2 {
+    font-weight: bold;
+    font-size: 31px;
+    margin-bottom: 32px;
+}
+.right h3 {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 20px;
+    margin-top: 40px;
 }
 @media all and (min-width: 1000px) {
     .container {
@@ -45,19 +54,6 @@
         font-size: 64px;
     }
 }
-
-.right h2 {
-    font-weight: bold;
-    font-size: 31px;
-    margin-bottom: 32px;
-}
-.right h3 {
-    font-weight: bold;
-    font-size: 17px;
-    margin-bottom: 20px;
-    margin-top: 40px;
-}
-
 .signup {
     width: 300px;
     height: 40px;

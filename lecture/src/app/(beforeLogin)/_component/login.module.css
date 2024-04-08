@@ -20,16 +20,30 @@
 .modal {
     background-color: rgb(var(--background-end-rgb));
     position: relative;
-    width: 100%;
+    top: 5%;
+    max-width: 80vw;
+    min-width: 600px;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    padding: 32px;
+    height: 450px;
 }
+
 .modalHeader {
-    padding: 36px 0 20px;
+    padding: 36px 80px 20px;
     font-size: 31px;
     font-weight: bold;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.modalBody {
+    flex: 1;
+    padding: 0 80px;
 }
 @media all and (min-width: 687px) {
     .modal {
@@ -45,16 +59,6 @@
     .modalBody {
         padding: 0 80px;
     }
-}
-
-.modal form {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.modalBody {
-    flex: 1;
 }
 
 .inputDiv {
@@ -86,7 +90,6 @@
     margin-top: 16px;
     padding: 12px 8px 8px;
     outline: none;
-    background: transparent;
 }
 
 .modalFooter {
@@ -101,7 +104,7 @@
     color: white;
     font-size: 17px;
     cursor: pointer;
-    border: 1px solid white;
+    border: none;
 }
 .actionButton:disabled {
     opacity: 0.5;
@@ -118,6 +121,7 @@
     cursor: pointer;
     background-color: #fff;
     position: absolute;
+    left: 16px;
     top: 16px;
     display: flex;
     align-items: center;
@@ -126,11 +130,6 @@
 .closeButton:hover {
     background-color: rgba(15,20,25, 0.1);
 }
-@media all and (min-width: 687px) {
-    .closeButton {
-        left: 16px;
-    }
-}
 @media (prefers-color-scheme: dark) {
     .closeButton {
         background-color: black;
@@ -138,11 +137,4 @@
     .closeButton svg {
         fill: white;
     }
-}
-
-.message {
-    color: red;
-    display: flex;
-    justify-content: center;
-    font-weight: bold;
 }

@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: row;
-    background-color: #fff;
+    background-color: rgb(var(--background-end-rgb));
     width: 100dvw;
     height: 100dvh;
 }
@@ -34,7 +34,26 @@
     margin-bottom: 20px;
     margin-top: 40px;
 }
-
+@media all and (min-width: 1000px) {
+    .container {
+        flex-direction: row;
+        padding: 0;
+    }
+    .left {
+        flex: 1;
+        justify-content: center;
+    }
+    .left img {
+        width: 450px;
+        height: 550px;
+    }
+    .right {
+        justify-content: center;
+    }
+    .right h1 {
+        font-size: 64px;
+    }
+}
 .signup {
     width: 300px;
     height: 40px;

@@ -23,6 +23,11 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
 }
+@media (prefers-color-scheme: dark) {
+    .postForm {
+        border-color: rgb(47, 51, 54);
+    }
+}
 .postInputSection {
     flex: 1;
 }
