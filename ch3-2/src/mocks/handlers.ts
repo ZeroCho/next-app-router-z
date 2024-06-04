@@ -48,7 +48,9 @@ export const handlers = [
     })
   }),
   http.get('/api/postRecommends', async ({ request }) => {
+    console.log('추천게시글');
     await delay(3000);
+    console.log('딜레이 종료');
     const url = new URL(request.url)
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
     return HttpResponse.json(
