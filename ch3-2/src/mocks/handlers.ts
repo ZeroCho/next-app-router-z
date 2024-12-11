@@ -43,12 +43,14 @@ export const handlers = [
     // })
     return HttpResponse.text(JSON.stringify('ok'), {
       headers: {
-        'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/;Max-Age=0'
+        'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/'
       }
     })
   }),
   http.get('/api/postRecommends', async ({ request }) => {
+    console.log('추천게시글');
     await delay(3000);
+    console.log('딜레이 종료');
     const url = new URL(request.url)
     const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
     return HttpResponse.json(

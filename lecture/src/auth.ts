@@ -25,6 +25,10 @@ export const {
   events: {
     signOut(data) {
       console.log('auth.ts events signout', 'session' in data && data.session, 'token' in data && data.token);
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+        method: "POST",
+        credentials: 'include'
+      })
       // if ('session' in data) {
       //   data.session = null;
       // }

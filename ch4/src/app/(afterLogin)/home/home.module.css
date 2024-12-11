@@ -19,16 +19,17 @@
         border-color: rgb(47, 51, 54);
     }
 }
-
-.loader {
-    animation: rotating 2s linear infinite;
-}
-
-@keyframes rotating {
-    from {
-        rotate: 0deg;
+@keyframes rotate {
+    0% {
+        rotate: 0;
+    }
+    50% {
+        rotate: 180deg;
     }
     100% {
-        rotate: 360deg;
+        rotate: 0;
     }
+}
+.loader {
+    animation: rotate 5s infinite;
 }
